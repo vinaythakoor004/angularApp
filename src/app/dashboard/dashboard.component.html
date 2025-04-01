@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div *ngIf="userData.length" class="container mt-4">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -9,8 +9,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of userData; let i = index">
-                <th scope="row">{{i+1}}</th>
+            <tr *ngFor="let item of userData; let i = index; trackBy: identify">
+                <th scope="row">{{item.id}}</th>
                 <td>{{item.firstName}}</td>
                 <td>{{item.lastName}}</td>
                 <td>{{item.handle}}</td>
@@ -18,16 +18,16 @@
         </tbody>
     </table>
 
-    <nav *ngIf="getPageSize().length" aria-label="Page navigation example">
+    <nav *ngIf="pageSize.length" aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" [class.disabled]="currentPage == 1" href="#" aria-label="Previous" aria-disabled="" (click)="getPageData(currentPage - 1, $event, 'prev')">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li *ngFor="let item of getPageSize(); let i = index" class="page-item"><a class="page-link" href="#">{{i+1}}</a></li>
+          <li *ngFor="let item of pageSize; let i = index" class="page-item"><a #pageLink (click)="getPageData(i+1, $event)" class="page-link" href="#">{{i+1}}</a></li>
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" [class.disabled]="currentPage == pageSize.length" (click)="getPageData(currentPage + 1, $event, 'next')" href="#" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
