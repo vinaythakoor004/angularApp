@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { SearchComponent } from "../search/search.component";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, SearchComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -69,8 +70,8 @@ export class DashboardComponent {
     return this.pageSize = [...Array(limit)].map((a, i) => i+1) 
   }
 
-  getPageData(page: number, e?: any, op?: string): Array<any> {
-    this.currentPage = page; //op == 'prev' ? page - 1 : op == 'next' ? page + 1 : page;
+  getPageData(page: number, e?: any): void {
+    this.currentPage = page;
     if (e) {
       e.preventDefault();
     }
@@ -78,8 +79,12 @@ export class DashboardComponent {
     let end = start + 10;
     const newArr = this.allUserData.slice(start, end); 
     this.userData = structuredClone(newArr);
-    console.log(this.userData);
-    return this.userData;
+  }
+
+  getSearch(e: any): void {
+    this.allUserData = e.allUserData;
+    this.getPageData(1);
+    this.getPageSize();
   }
 
   getPageClass(page: number): string {
