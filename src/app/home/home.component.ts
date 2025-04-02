@@ -25,7 +25,6 @@ export class HomeComponent {
   getUsers(): void {
     this.homeservice.fetchUsers().subscribe({
       next: (data) => {
-        console.log("A")
         this.allUserData = data;
         this.getPageSize();
         this.getPageData(1);    
