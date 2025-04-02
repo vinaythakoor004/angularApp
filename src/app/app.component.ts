@@ -9,4 +9,10 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'AngularApp';
+
+  navigatePage(e: any) {
+    if (e) {
+      // e.preventDefault();
+    }
+  }
 }

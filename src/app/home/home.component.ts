@@ -1,14 +1,15 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { SearchComponent } from "../search/search.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [CommonModule, SearchComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  selector: 'app-home',
+  imports: [ CommonModule, SearchComponent ],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
-export class DashboardComponent {
+
+export class HomeComponent {
   allUserData: Array<any> = [
     { id: 1,  firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
     { id: 2, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },

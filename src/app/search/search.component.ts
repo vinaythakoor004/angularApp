@@ -17,7 +17,7 @@ export class SearchComponent {
   }
 
   onInput(e: any): void {
-    const val = e?.target?.value || "";
+    const val = e?.target?.value || e?.value || "";
     if (val && this.userDataCopy.length) {
       this.allUserData = this.userDataCopy.filter((user: any) => {
         return user.firstName.toLowerCase().includes(val.toLowerCase()) || user.lastName.toLowerCase().includes(val.toLowerCase()) || user.handle.toLowerCase().includes(val.toLowerCase())
@@ -25,7 +25,11 @@ export class SearchComponent {
     } else {
       this.allUserData = this.userDataCopy;
     }
-    console.log(this.allUserData);
     this.searchEvent.emit({ allUserData: this.allUserData });
+  }
+
+  searchClicked(e: any): void {
+    const element = document?.getElementById('searchBox');
+    this.onInput(element);
   }
 }

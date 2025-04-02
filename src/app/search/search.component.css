@@ -2,3 +2,8 @@
     width: 40rem;
     margin: auto;
 }
+
+.searchBox input {
+    outline: none;
+    box-shadow: none
+}

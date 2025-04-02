@@ -1,8 +1,8 @@
 <nav class="nav navbarClass">
-    <a class="nav-link active" aria-current="page" href="#">Home</a>
-    <a class="nav-link" href="#">Services</a>
-    <a class="nav-link" href="#">Projects</a>
-    <a class="nav-link" href="#">Log In</a>
-    <a class="nav-link" href="#">About</a>
+    <a class="nav-link active" aria-current="page" href="/home" (click)="navigatePage($event)">Home</a>
+    <a class="nav-link" href="/services" (click)="navigatePage($event)">Services</a>
+    <a class="nav-link" href="/projects" (click)="navigatePage($event)">Projects</a>
+    <a class="nav-link" href="/login" (click)="navigatePage($event)">Log In</a>
+    <a class="nav-link" href="/about" (click)="navigatePage($event)">About</a>
 </nav>
 <router-outlet />
