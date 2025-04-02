@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SearchComponent } from "../search/search.component";
 import { CommonModule } from '@angular/common';
+import { HomeService } from './service/home.service';
 
 @Component({
   selector: 'app-home',
@@ -10,60 +11,33 @@ import { CommonModule } from '@angular/common';
 })
 
 export class HomeComponent {
-  allUserData: Array<any> = [
-    { id: 1,  firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 2, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 3, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 4, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 5, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 6, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 7, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 8, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 9, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 10, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 11, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 12, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 13, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 14, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 15, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 16, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 17, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 18, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 19, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 20, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 21, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 22, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 23, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 24, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 25, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 26, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 27, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 28, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 29, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 30, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 31, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 32, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 33, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 34, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 35, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 36, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 37, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 38, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 39, firstName: "Rohan", lastName: "Datt", handle: "Twiiter" },
-    { id: 40, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 41, firstName: "Ajay", lastName: "Patil", handle: "Facebook" },
-    { id: 42, firstName: "Satish", lastName: "Kumar", handle: "Twitter" },
-    { id: 43, firstName: "Ajay", lastName: "Patil", handle: "Facebook" }
-  ];
+  allUserData: Array<any> = [];
   userData: Array<any> = [];
   pageSize: Array<number> = [];
   currentPage: number = 1;
 
-  constructor() { }
+  constructor(private homeservice: HomeService) { }
 
   ngOnInit(): void {
-    this.getPageSize();
-    this.getPageData(1);
+    this.getUsers();
+  }
+
+  getUsers(): void {
+    this.homeservice.fetchUsers().subscribe({
+      next: (data) => {
+        console.log("A")
+        this.allUserData = data;
+        this.getPageSize();
+        this.getPageData(1);    
+      }, 
+      error: (err) => {
+        console.log(err)
+        this.allUserData = [];
+        this.getPageSize();
+        this.getPageData(1);    
+      }
+    }
+    )
   }
 
   getPageSize(): Array<number> {
