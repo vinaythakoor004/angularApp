@@ -1,0 +1,14 @@
+.pagination.disabled {
+    color: gray;
+    cursor: not-allowed;
+    text-decoration: underline;
+}
+
+.tableDiv {
+    height: 30rem;
+}
+
+.paginationClass li a {
+    outline: none;
+    box-shadow: none
+}
