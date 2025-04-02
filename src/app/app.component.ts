@@ -1,18 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'AngularApp';
+  routeName: string = "home"; 
 
-  navigatePage(e: any) {
-    if (e) {
-      // e.preventDefault();
+  constructor(
+    private router: Router) {
+  }
+
+  navigatePage(e: any, element: any) {
+    if (element) {
+      
     }
   }
 }

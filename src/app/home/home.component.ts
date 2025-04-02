@@ -71,7 +71,7 @@ export class HomeComponent {
     return this.pageSize = [...Array(limit)].map((a, i) => i+1) 
   }
 
-  getPageData(page: number, e?: any): void {
+  getPageData(page: number, e?: any, pageNoElement?: any): void {
     this.currentPage = page;
     if (e) {
       e.preventDefault();

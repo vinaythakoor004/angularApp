@@ -7,3 +7,8 @@
 .tableDiv {
     height: 30rem;
 }
+
+.paginationClass li a {
+    outline: none;
+    box-shadow: none
+}
