@@ -1,6 +1,5 @@
 <nav #navbar class="nav navbarClass">
     <a #home class="nav-link" aria-current="page" routerLink="/home" [routerLinkActive]="['activeClass']" (click)="navigatePage($event, home)">Home</a>
-    <a #services class="nav-link" routerLink="/services" [routerLinkActive]="['activeClass']" (click)="navigatePage($event, services)">Services</a>
     <a #projects class="nav-link" routerLink="/projects" [routerLinkActive]="['activeClass']" (click)="navigatePage($event, projects)">Projects</a>
     <a #about class="nav-link" routerLink="/about" [routerLinkActive]="['activeClass']" (click)="navigatePage($event, about)">About</a>
 </nav>
