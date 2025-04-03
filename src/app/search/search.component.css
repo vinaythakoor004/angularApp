@@ -7,3 +7,7 @@
     outline: none;
     box-shadow: none
 }
+
+.searchBox input[type=text]:focus {
+    border: 1px solid gray;
+}

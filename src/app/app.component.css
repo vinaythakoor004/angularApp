@@ -1,9 +1,23 @@
 .activeClass {
-    background: #0d6efd;
+    background: #56585c;
     border-radius: 3px;
     color: white;
+    margin: 0px 0.2rem;
 }
+
 .activeClass:hover {
-    background: #0b5ed7;
+    background: #56585c;
     color: white;
+    margin: 0px 0.2rem;
+}
+
+.navbarClass a {
+    margin: 0px 0.2rem;
+    border-radius: 3px;
+}
+
+.navbarClass a:hover {
+    background: #56585c;
+    color: white;
+    margin: 0px 0.2rem;
 }

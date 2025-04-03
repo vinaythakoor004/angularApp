@@ -6,24 +6,24 @@
     </p>
     <hr class="mt-5">
 
-    <form class="mt-5" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <form class="mt-5 contactForm" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
             <label for="exampleInputLastname" class="form-label">First name  (required)</label>
-            <input type="text" class="form-control" id="exampleInputLastname" formControlName="firstName">
+            <input type="text" class="form-control" autocomplete="off" id="exampleInputLastname" formControlName="firstName">
             <div *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched" class="form-text errorMsg">
                 First Name is required.
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleInputFirstname" class="form-label">Last name  (required)</label>
-            <input type="text" class="form-control" id="exampleInputFirstname" formControlName="lastName">
+            <input type="text" class="form-control" autocomplete="off" id="exampleInputFirstname" formControlName="lastName">
             <div *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('lastName')?.touched" class="form-text errorMsg">
                 Last Name is required.
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address (required)</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email"
+            <input type="email" class="form-control" autocomplete="off" id="exampleInputEmail1" formControlName="email"
                 aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             <div *ngIf="contactForm.get('firstName')?.invalid && contactForm.get('email')?.touched" class="form-text errorMsg">
@@ -32,12 +32,12 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputSubject" class="form-label">Subject</label>
-            <input type="text" class="form-control" id="exampleInputSubject" formControlName="subject">
+            <input type="text" class="form-control" autocomplete="off" id="exampleInputSubject" formControlName="subject">
         </div>
         <div class="mb-3">
             <label for="exampleInputMessage" class="form-label">Your message</label>
-            <textarea type="text" class="form-control message" id="exampleInputMessage" formControlName="message"></textarea>
+            <textarea type="text" class="form-control message" autocomplete="off" id="exampleInputMessage" formControlName="message"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-secondary">Submit</button>
     </form>
 </div>
