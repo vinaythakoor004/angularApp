@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ContactService } from './contact_service/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -11,7 +12,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 export class ContactComponent {
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private contactService: ContactService) {
     this.contactForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -19,12 +20,21 @@ export class ContactComponent {
       subject: [''],
       message: [''],
     });
-   }
+  }
 
-  onSubmit() {
+  onSubmit(): void {
     console.log(this.contactForm.value);
     if (this.contactForm.valid) {
-      alert('Form submitted successfully!');
+      this.contactService.saveContactFormData(this.contactForm.value).subscribe({
+        next: (data) => {
+          alert(JSON.stringify(data));
+        },
+        error: (err) => {
+          alert('Error please try again!');
+        }
+      }
+      );
+
       this.contactForm.reset();
     } else {
       console.log('Form is invalid.');
