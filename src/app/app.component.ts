@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,20 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 export class AppComponent {
   title = 'AngularApp';
   routeName: string = "home"; 
+  currentRoute: string = "";
 
   constructor(
-    private router: Router) {
+    private router: Router, private location: Location
+  ) {
+    this.currentRoute = "";
+    this.currentRoute = this.location.path();
   }
 
-  navigatePage(e: any, element: any) {
-    if (element) {
-      
-    }
+  ngOnInit(): void {
+  }
+
+  navigatePage(e: any, routeName: any) {
+    this.currentRoute = '/' + routeName;
+    console.log(this.currentRoute);
   }
 }

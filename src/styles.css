@@ -19,7 +19,7 @@
 }
 
 .main-content {
-  margin-top: 6rem;
+  /* margin-top: 6rem; */
 }
 
 .page-container {
@@ -33,4 +33,8 @@
   bottom: 0;
   width: 100%;
   height: 2.5rem;
+}
+
+.aboutPageCss {
+  background: papayawhip;
 }

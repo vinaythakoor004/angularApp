@@ -1,13 +1,13 @@
-<div class="page-container">
+<div class="page-container" [ngClass]="{ aboutPageCss: currentRoute == '/about' }">
     <header #navbar class="nav navbarClass fixed-top bg-dark">
         <a #home class="nav-link" aria-current="page" routerLink="/home" [routerLinkActive]="['activeClass']"
-            (click)="navigatePage($event, home)">Home</a>
+            (click)="navigatePage($event, 'home')">Home</a>
         <a #projects class="nav-link" routerLink="/projects" [routerLinkActive]="['activeClass']"
-            (click)="navigatePage($event, projects)">Projects</a>
+            (click)="navigatePage($event, 'projects')">Projects</a>
         <a #contact class="nav-link" routerLink="/contact" [routerLinkActive]="['activeClass']"
-            (click)="navigatePage($event, contact)">Contact</a>
+            (click)="navigatePage($event, 'contact')">Contact</a>
         <a #about class="nav-link" routerLink="/about" [routerLinkActive]="['activeClass']"
-            (click)="navigatePage($event, about)">About</a>
+            (click)="navigatePage($event, 'about')">About</a>
     </header>
     <main class="main-content">
         <router-outlet />
