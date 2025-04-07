@@ -5,6 +5,7 @@ import { HomeService } from './service/home.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { User } from './model/uset';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,8 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 
 export class HomeComponent {
-  allUserData: Array<any> = [];
-  userData: Array<any> = [];
+  allUserData: Array<User> = [];
+  userData: Array<User> = [];
   pageSize: Array<number> = [];
   currentPage: number = 1;
   readonly dialog = inject(MatDialog);
@@ -73,7 +74,7 @@ export class HomeComponent {
     return item.id;
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, item: any): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, item: User): void {
     this.dialog.open(DialogComponent, {
       data: {
         user: item

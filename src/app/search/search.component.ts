@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { User } from '../home/model/uset';
 
 @Component({
   selector: 'app-search',
@@ -7,10 +8,10 @@ import { Component, EventEmitter, Input, output, Output } from '@angular/core';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-  @Input() allUserData: Array<any> = [];
-  @Input() userData: Array<any> = [];
+  @Input() allUserData: Array<User> = [];
+  @Input() userData: Array<User> = [];
   @Output() searchEvent = new EventEmitter<any>();
-  userDataCopy: Array<any> = [];
+  userDataCopy: Array<User> = [];
 
   ngOnInit() {
     this.userDataCopy = structuredClone(this.allUserData);
@@ -19,7 +20,7 @@ export class SearchComponent {
   onInput(e: any): void {
     const val = e?.target?.value || e?.value || "";
     if (val && this.userDataCopy.length) {
-      this.allUserData = this.userDataCopy.filter((user: any) => {
+      this.allUserData = this.userDataCopy.filter((user: User) => {
         return user.firstName.toLowerCase().includes(val.toLowerCase()) || user.lastName.toLowerCase().includes(val.toLowerCase()) || user.country.toLowerCase().includes(val.toLowerCase())
       });
     } else {
