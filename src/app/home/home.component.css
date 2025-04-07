@@ -27,3 +27,12 @@
     background: #56585c;
     color: white;
 }
+
+.idClass {
+    cursor: pointer;
+text-decoration: none;
+}
+
+.idClass:hover {
+    text-decoration: underline;
+}

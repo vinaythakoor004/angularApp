@@ -20,7 +20,7 @@ export class SearchComponent {
     const val = e?.target?.value || e?.value || "";
     if (val && this.userDataCopy.length) {
       this.allUserData = this.userDataCopy.filter((user: any) => {
-        return user.firstName.toLowerCase().includes(val.toLowerCase()) || user.lastName.toLowerCase().includes(val.toLowerCase()) || user.handle.toLowerCase().includes(val.toLowerCase())
+        return user.firstName.toLowerCase().includes(val.toLowerCase()) || user.lastName.toLowerCase().includes(val.toLowerCase()) || user.country.toLowerCase().includes(val.toLowerCase())
       });
     } else {
       this.allUserData = this.userDataCopy;
