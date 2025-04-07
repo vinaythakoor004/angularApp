@@ -22,6 +22,12 @@
   </div>
 
   <nav *ngIf="pageSize.length" aria-label="Page navigation" class="paginationClass">
+    <select class="form-select-sm pageSizeSelect" aria-label="Default select example">
+      <option selected value="1">5</option>
+      <option value="2">10</option>
+      <option value="3">20</option>
+    </select>
+
     <ul class="pagination">
       <li class="page-item">
         <a class="page-link" [class.disabled]="currentPage == 1" href="#" aria-label="Previous" aria-disabled=""
