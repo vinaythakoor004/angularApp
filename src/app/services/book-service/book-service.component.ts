@@ -39,4 +39,7 @@ export class BookServiceComponent {
     });
   }
 
+  checkService(): void {
+    // this.bookService.checkService(this.selectesService);
+  }
 }
