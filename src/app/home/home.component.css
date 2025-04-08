@@ -27,3 +27,18 @@
     background: #56585c;
     color: white;
 }
+
+.idClass {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.idClass:hover {
+    text-decoration: underline;
+}
+
+.pageSizeSelect {
+    padding: 0;
+    margin-right: 1rem;
+    height: 2.5rem;
+}

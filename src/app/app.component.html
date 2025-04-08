@@ -1,12 +1,12 @@
-<div class="page-container" [ngClass]="{ aboutPageCss: currentRoute == '/about' }">
+<div class="page-container aboutPageCss"> <!-- [ngClass]="{ aboutPageCss: currentRoute == '/about' || currentRoute == '/services' }" -->
     <header #navbar class="nav navbarClass fixed-top bg-dark">
-        <a #home class="nav-link" aria-current="page" routerLink="/home" [routerLinkActive]="['activeClass']"
+        <a #home class="nav-link" aria-current="page" routerLink="home" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'home')">Home</a>
-        <a #projects class="nav-link" routerLink="/projects" [routerLinkActive]="['activeClass']"
-            (click)="navigatePage($event, 'projects')">Projects</a>
-        <a #contact class="nav-link" routerLink="/contact" [routerLinkActive]="['activeClass']"
+        <a #services class="nav-link" routerLink="services" [routerLinkActive]="['activeClass']"
+            (click)="navigatePage($event, 'services')">Services</a>
+        <a #contact class="nav-link" routerLink="contact" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'contact')">Contact</a>
-        <a #about class="nav-link" routerLink="/about" [routerLinkActive]="['activeClass']"
+        <a #about class="nav-link" routerLink="about" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'about')">About</a>
     </header>
     <main class="main-content">

@@ -1,42 +1,49 @@
 <div class="container mt-4">
-    <app-search [allUserData]="allUserData" [userData]="userData" (searchEvent)="getSearch($event)"></app-search>
-    <div *ngIf="userData.length" class="tableDiv">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of userData; let i = index; trackBy: identify">
-            <th scope="row">{{item.id}}</th>
-            <td>{{item.firstName}}</td>
-            <td>{{item.lastName}}</td>
-            <td>{{item.handle}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <nav *ngIf="pageSize.length" aria-label="Page navigation" class="paginationClass">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" [class.disabled]="currentPage == 1" href="#" aria-label="Previous" aria-disabled=""
-            (click)="getPageData(currentPage - 1, $event)">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li #pageNoElement *ngFor="let item of pageSize; let i = index;" class="page-item"><a #pageLink [ngClass]="{ active: currentPage === i+1 }" (click)="getPageData(i+1, $event, pageNoElement)"
-            class="page-link" href="#">{{i+1}}</a></li>
-        <li class="page-item">
-          <a class="page-link" [class.disabled]="currentPage == pageSize.length"
-            (click)="getPageData(currentPage + 1, $event)" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+  <app-search [allUserData]="allUserData" [userData]="userData" (searchEvent)="getSearch($event)"></app-search>
+  <div *ngIf="userData.length" class="tableDiv">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center" scope="col" title="Click on id to see user details"><span title="Click on id to see user details">#</span></th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of userData; let i = index; trackBy: identify">
+          <th class="text-center" scope="row"><span (click)="openDialog('100', '100', item)" class="idClass">{{item.id}}</span></th>
+          <td>{{item.firstName}}</td>
+          <td>{{item.lastName}}</td>
+          <td>{{item.country}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
+  <nav *ngIf="pageSize.length" aria-label="Page navigation" class="paginationClass">
+    <select class="form-select-sm pageSizeSelect" aria-label="Default select example">
+      <option selected value="1">5</option>
+      <option value="2">10</option>
+      <option value="3">20</option>
+    </select>
+
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" [class.disabled]="currentPage == 1" href="#" aria-label="Previous" aria-disabled=""
+          (click)="getPageData(currentPage - 1, $event)">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li #pageNoElement *ngFor="let item of pageSize; let i = index;" class="page-item"><a #pageLink
+          [ngClass]="{ active: currentPage === i+1 }" (click)="getPageData(i+1, $event, pageNoElement)"
+          class="page-link" href="#">{{i+1}}</a></li>
+      <li class="page-item">
+        <a class="page-link" [class.disabled]="currentPage == pageSize.length"
+          (click)="getPageData(currentPage + 1, $event)" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
