@@ -1,13 +1,16 @@
 <div class="container servicesDiv">
     <div class="text-center mb-4"><span class="fs-1 fw-bold">Our Services</span><br><span class="fs-4">What can we clean for you today</span></div>
     <div class="row servicesRow border-top" *ngFor="let item of services">
-        <div class="col-8 serviceNameCol">
-            <span class="fs-4 fw-bold">{{ item.name }}</span><br>
+        <div class="col-2 serviceImgCol">
+            <img src="assets/img/{{ item.image }}" alt="{{ item.name }}" class="img-fluid serviceImg">
+        </div>
+        <div class="col-6 serviceNameCol">
+            <a #home class="nav-link fs-4 fw-bold" aria-current="page" routerLink="book-service" (click)="checkService(item)">{{ item.name }}</a><br>
             <span class="fs-5">{{ item.description }}</span>
         </div>
         <div class="col-4 serviceBtnCol">
             <span class="fs-5">{{ item.price }}</span>
-            <button class="btn btn-outline-secondary rounded-0" id="searchBtn" type="button" (click)="bookService(item)">Book a Service</button>
+            <button class="btn btn-outline-warning rounded-0 border border-dark text-dark" id="searchBtn" type="button" (click)="checkService(item)">Book a Service</button>
         </div>
     </div>
     <hr>

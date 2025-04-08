@@ -1,29 +1,43 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { BookService } from './book-service/service/book.service';
+import { serviceDetails } from './book-service/model/serviceDetails';
 
 @Component({
   selector: 'app-services',
-  imports: [ CommonModule ],
+  imports: [CommonModule, RouterLink],
   templateUrl: './services.component.html',
-  styleUrl: './services.component.css'
+  styleUrl: './services.component.css',
 })
 export class ServicesComponent {
-  services: Array<any> = [
-    { name: 'Deep cleaning', description: 'Thorough cleaning in every nook and cranny of your home.', price: "100$"  },
-    { name: 'Furniture Cleaning', description: 'Ensuring your furniture is refreshed, sanitized, and looks as good as new.', price: "150$" },
-    { name: 'Kitchen Cleaning', description: 'Leaving your kitchen spotless and hygienic.', price: "300$" },
-    { name: 'Move In/Move Out', description: 'Hassle-free cleaning for a smooth transition.', price: "100$" },
-    { name: 'Laundry', description: 'Washing, folding and ironing, providing you with neatly pressed clothes.', price: "50$" },
-    { name: 'Window Cleaning', description: 'Crystal-clear results, enhancing natural light and a sparkling view.', price: "100$" },
-    { name: 'Office Cleaning', description: 'Tailored to maintain a clean workspace, promoting a productive environment.', price: "200$" }
-    ]
+  services: Array<serviceDetails> = []
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router ) {}
   ngOnInit(): void {
-
+    this.bookService.getServiceDetails().subscribe({
+      next: (data) => {
+        this.services = data;
+      },
+      error: (error) => {
+        console.error('Error fetching service details:', error);
+        this.services = []; // Handle error case by setting services to an empty array
+      }
+    }
+    );
+  }
+  
+  checkService(service: serviceDetails): void {
+    const url = this.router.url + '/book-service';
+    const params = {
+        queryParams: {
+            name: service.name
+        }
+    };
+    this.router.navigate([url], params);
   }
 
-  bookService(service: any): void {
-      console.log(`Booking service: ${service.name}`);
+  navigatePage(): void {
+    console.log('Navigating to booking page...');
   }
 }
