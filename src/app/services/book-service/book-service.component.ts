@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { serviceDetails } from './model/serviceDetails';
 import { BookService } from './service/book.service';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class BookServiceComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private bookService: BookService = inject(BookService);
 
   selectesService: serviceDetails = {
@@ -29,7 +30,11 @@ export class BookServiceComponent {
   }
   
   ngOnInit(): void {
-  this.getServiceDetails();
+    if (this.bookService.serviceDetails.length) {
+      this.getServiceDetails();
+    } else {
+      this.router.navigate(['services']);
+    }
   }
   
   getServiceDetails(): void {
@@ -40,6 +45,6 @@ export class BookServiceComponent {
   }
 
   checkService(): void {
-    // this.bookService.checkService(this.selectesService);
+    this.router.navigate(['appointment'], { relativeTo: this.activatedRoute, queryParams: { name: this.selectesService.name } });
   }
 }

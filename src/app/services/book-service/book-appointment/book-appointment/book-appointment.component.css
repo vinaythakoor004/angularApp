@@ -1,0 +1,38 @@
+.dateRow {
+  margin-top: 2rem;
+}
+
+.slotbtn {
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.slotDiv {
+}
+
+.datePicker {
+  width: 90%;
+}
+
+.serviceDetailsCol {
+    display: grid;
+    margin: auto;
+    margin-top: unset;
+}
+
+.nextBtn {
+  margin-top: 2rem;
+  width: fit-content;
+}
+
+.appointmentSubmit {
+  width: fit-content;
+}
+
+.userDetailsRow {
+  margin-top: 5rem;
+}
+
+::ng-deep .appointmentTabGroup .mdc-tab {
+  display: none;
+}

@@ -5,9 +5,9 @@
                 <img src="assets/img/{{ selectesService.image }}" alt="{{ selectesService.name }}"
                     class="img-fluid serviceImg" />
                 <div class="bookserviceText">
-                    <h1>{{ selectesService.name }}</h1>
-                    <p class="fs-5 mt-3">{{ selectesService.description }}</p>
-                    <span class="fs-5">{{ selectesService.time }} &nbsp;&nbsp; {{ selectesService.price }}</span>
+                    <span class="openSansBold fs-2">{{ selectesService.name }}</span>
+                    <p class="openSansRegular fs-6 mt-3">{{ selectesService.description }}</p>
+                    <span class="openSansRegular fs-6">{{ selectesService.time }} &nbsp;&nbsp; {{ selectesService.price }}</span>
                     <button class="btn btn-outline-warning rounded-0 border border-dark text-dark bookbtn mt-4"
                         id="searchBtn" type="button" (click)="checkService()">
                         Book a Service
@@ -15,11 +15,11 @@
                 </div>
             </div>
             <hr class="mt-5" />
-            <span class="fs-4">Service Description</span><br><br>
-            <p class="fs-5">{{ selectesService.servicedescription }}</p>
+            <span class="fs-5 openSansSemiBold">Service Description</span><br><br>
+            <p class="fs-6 openSansRegular">{{ selectesService.servicedescription }}</p>
             <hr class="mt-5" />
-            <span class="fs-4">Contact Details</span><br><br>
-            <p class="fs-5">{{ selectesService.contactDetails }}</p>
+            <span class="fs-5 openSansSemiBold">Contact Details</span><br><br>
+            <p class="fs-6 openSansRegular">{{ selectesService.contactDetails }}</p>
             <hr class="mt-5" />
         </div>
     </div>
