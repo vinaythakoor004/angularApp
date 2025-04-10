@@ -1,4 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'OpenSans-Bold';
+  src: url('assets/fonts/OpenSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'OpenSans-light';
+  src: url('assets/fonts/OpenSans-Light.ttf') format('truetype');
+  font-weight: light;
+  font-style: light;
+}
+
+@font-face {
+  font-family: 'OpenSans-medium';
+  src: url('assets/fonts/OpenSans-Medium.ttf') format('truetype');
+  font-weight: medium;
+  font-style: medium;
+}
+
+
+@font-face {
+  font-family: 'OpenSans-regular';
+  src: url('assets/fonts/OpenSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: 400;
+}
+
+@font-face {
+  font-family: 'OpenSans-semibold';
+  src: url('assets/fonts/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: 600;
+}
+
+.openSansBold {
+  font-family: 'OpenSans-Bold';
+  font-weight: bold;
+}
+
+.openSansLight {
+  font-family: 'OpenSans-light';
+  font-weight: light;
+}
+.openSansMedium {
+  font-family: 'OpenSans-medium';
+  font-weight: medium;
+}
+.openSansRegular {
+  font-family: 'OpenSans-regular';
+  font-weight: 400;
+}
+.openSansSemiBold {
+  font-family: 'OpenSans-semibold';
+  font-weight: 600;
+}
+
 .navbarClass {
   background-color: #333;
   color: white;
