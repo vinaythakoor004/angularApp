@@ -1,5 +1,6 @@
 <div class="container">
-    <form class="mt-5 appointmentForm" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+    <form class="appointmentForm" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+        <div class="backBtn" (click)="backBtnClick()"><img src="assets/img/arrow_back.svg" alt="arrow_back" class="img-fluid" />back</div>
         <mat-tab-group #appointmentTab animationDuration="0ms" class="mt-5 appointmentTabGroup">
             <mat-tab label="First" [hidden]="true">
                 <div class="row dateRow w-100">
@@ -22,7 +23,7 @@
                                 <button class="btn btn-outline-warning rounded-0 border border-dark text-dark slotbtn" [ngClass]="{'active': selectedSlotIndex === i}"
                                     id="searchBtn" type="button" (click)="selectSlot(slot, i)">{{ slot }}</button>
                             </div>
-                            <span *ngIf="isSlotInvalid" class="form-text errorMsg">Time slot is required.</span>
+                            <span *ngIf="isSlotInvalid" class="form-text errorMsg text-danger">Time slot is required.</span>
                         </div>
                     </div>
                     <div class="col-4 serviceDetailsCol">
@@ -31,7 +32,7 @@
                         </span>
                         <hr />
                         <span class="mt-2 ms-4">{{ selectesService.name }}</span>
-                        <span class="mt-2 ms-4">{{ selectedDate | date: 'fullDate' }}</span>
+                        <span class="mt-2 ms-4">{{ selectedDate | date: 'fullDate' }} - {{ appointmentForm.value.selectedSlot }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.contactDetails }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.time }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.price }}</span>

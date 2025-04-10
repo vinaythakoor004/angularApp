@@ -118,4 +118,9 @@ export class BookAppointmentComponent {
   onSubmit(): void {
     console.log(this.appointmentForm.value);
   }
+
+  backBtnClick(): void {
+    this.router.navigate(['services/book-service'], { queryParams: { name: this.selectesService.name } });
+    this.appointmentForm.reset();
+  }
 }
