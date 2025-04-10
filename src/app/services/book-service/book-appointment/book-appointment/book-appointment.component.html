@@ -8,19 +8,21 @@
                             Select a Date and Time
                         </span>
                         <hr />
-                        <mat-calendar class="datePicker" [selected]="selectedDate"
+                        <mat-calendar class="datePicker" [selected]="selectedDate" [minDate]="minDate" [maxDate]="maxDate"
                             (selectedChange)="onDateSelect($event)"></mat-calendar>
+                        <span *ngIf="isDateInvalid" class="form-text errorMsg text-danger">Date is required.</span>
                     </div>
                     <div class="col-4 slotDiv">
                         <span class="d-flex w-100 openSansSemiBold ms-4">
                             Avaiable Time Slots for, {{ selectedDate | date: 'fullDate' }}
                         </span>
-                        <hr />
+                        <hr/>
                         <div class="row mt-5">
-                            <div class="col-6" *ngFor="let slot of timeSlots">
-                                <button class="btn btn-outline-warning rounded-0 border border-dark text-dark slotbtn"
-                                    id="searchBtn" type="button" (click)="selectSlot(slot)">{{ slot }}</button>
+                            <div class="col-6" *ngFor="let slot of timeSlots, index as i">
+                                <button class="btn btn-outline-warning rounded-0 border border-dark text-dark slotbtn" [ngClass]="{'active': selectedSlotIndex === i}"
+                                    id="searchBtn" type="button" (click)="selectSlot(slot, i)">{{ slot }}</button>
                             </div>
+                            <span *ngIf="isSlotInvalid" class="form-text errorMsg">Time slot is required.</span>
                         </div>
                     </div>
                     <div class="col-4 serviceDetailsCol">
@@ -53,7 +55,7 @@
                                 <input type="text" class="form-control" autocomplete="off" id="exampleInputLastname"
                                     formControlName="firstName">
                                 <div *ngIf="appointmentForm.get('firstName')?.invalid && appointmentForm.get('firstName')?.touched"
-                                    class="form-text errorMsg">
+                                    class="form-text errorMsg text-danger">
                                     First Name is required.
                                 </div>
                             </div>
@@ -63,7 +65,7 @@
                                 <input type="text" class="form-control" autocomplete="off" id="exampleInputLastname"
                                     formControlName="lastName">
                                 <div *ngIf="appointmentForm.get('lastName')?.invalid && appointmentForm.get('lastName')?.touched"
-                                    class="form-text errorMsg">
+                                    class="form-text errorMsg text-danger">
                                     Last Name is required.
                                 </div>
                             </div>
@@ -75,7 +77,7 @@
                                 <div id="emailHelp" class="form-text openSansRegular">We'll never share your email with anyone
                                     else.</div>
                                 <div *ngIf="appointmentForm.get('email')?.invalid && appointmentForm.get('email')?.touched"
-                                    class="form-text errorMsg">
+                                    class="form-text errorMsg text-danger">
                                     email is required.
                                 </div>
                             </div>
@@ -84,7 +86,7 @@
                                 <input type="text" class="form-control" autocomplete="off" id="exampleInputPhone"
                                     formControlName="phone">
                                 <div *ngIf="appointmentForm.get('phone')?.invalid && appointmentForm.get('phone')?.touched"
-                                    class="form-text errorMsg">
+                                    class="form-text errorMsg text-danger">
                                     phone no. is invalid.
                                 </div>
                             </div>
@@ -102,7 +104,7 @@
                         </span>
                         <hr/>
                         <span class="mt-2 ms-4">{{ selectesService.name }}</span>
-                        <span class="mt-2 ms-4">{{ selectedDate | date: 'fullDate' }}</span>
+                        <span class="mt-2 ms-4">{{ selectedDate | date: 'fullDate' }} - {{ appointmentForm.value.selectedSlot }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.contactDetails }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.time }}</span>
                         <hr/>
@@ -114,7 +116,7 @@
                             <button class="btn btn-outline-dark rounded-0 border border-dark ms-4 nextBtn"
                             id="searchBtn" type="button" (click)="nextTab(appointmentTab, 'prev')">Back</button>
                             <button class="btn btn-outline-dark rounded-0 border border-dark ms-4 nextBtn"
-                            id="searchBtn" type="submit" (click)="selectSlot(selectesService)">Book now</button>
+                            id="searchBtn" type="submit" [disabled]="!appointmentForm.valid" (click)="booAppontment()">Book now</button>
                         </div>
 
                     </div>

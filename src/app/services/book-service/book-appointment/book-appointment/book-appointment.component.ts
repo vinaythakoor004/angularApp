@@ -48,19 +48,34 @@ export class BookAppointmentComponent {
   };
 
   appointmentForm: FormGroup;
+  selectedSlotIndex: number = -1;
+  isDateInvalid: boolean = false;
+  isSlotInvalid: boolean = false;
+  minDate: Date = new Date();
+  maxDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
 
   constructor(private fb: FormBuilder) {
     this.appointmentForm = this.fb.group({
       selectedDate: ['', Validators.required],
+      selectedSlot: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.pattern('^[0-9]{10}$')],
       message: [''],
     });
+    this.minDate.setDate(this.minDate.getDate() - 0);
   }
 
   ngOnInit(): void {
+    if (this.bookService.serviceDetails.length) {
+      this.getServiceDetails();
+    } else {
+      this.router.navigate(['services']);
+    }
+  }
+
+  getServiceDetails(): void {
     this?.activatedRoute?.queryParams?.subscribe((params) => {
       const serviceName = params['name'];
       this.selectesService =
@@ -68,18 +83,32 @@ export class BookAppointmentComponent {
     });
   }
 
+
   onDateSelect(date: Date): void {
     this.selectedDate = date;
+    this.selectedSlotIndex = -1; // Reset selected slot index when a new date is selected
     this.appointmentForm.patchValue({ selectedDate: date });
-    console.log('Selected date:', this.selectedDate);
+    this.appointmentForm.patchValue({ selectedSlot: '' });
+    this.isDateInvalid = !this.appointmentForm.value.selectedDate;
+    this.isSlotInvalid = !this.appointmentForm.value.selectedSlot;
   }
 
-  selectSlot(slot: any): void {
-    console.log('Selected time slot:', this.selectedDate);
+  selectSlot(slot: any, selectedIndex: number): void {
+    this.selectedSlotIndex = selectedIndex;
+    this.appointmentForm.patchValue({ selectedSlot: slot });
+    this.isSlotInvalid = !this.appointmentForm.value.selectedSlot;
+  }
+
+  booAppontment(): void {
+    console.log('Booking appointment...');
   }
 
   nextTab(formTab: any, btn: string): void {
-    if (formTab && btn == 'next') {
+    if (!this.appointmentForm.value.selectedDate || !this.appointmentForm.value.selectedSlot) {
+      this.isDateInvalid = !this.appointmentForm.value.selectedDate;
+      this.isSlotInvalid = !this.appointmentForm.value.selectedSlot;
+      console.log('Please select a date and time slot before proceeding.');
+    } else if (formTab && btn == 'next') {
       formTab.selectedIndex = formTab.selectedIndex + 1;
     } else if (formTab && btn == 'prev') {
       formTab.selectedIndex = formTab.selectedIndex - 1;
