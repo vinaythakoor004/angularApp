@@ -1,50 +1,62 @@
 <div class="container mt-4 userDetails">
-  <h2 class="text-center">User Details</h2>
+  <h2 class="text-center mb-4">booking Details</h2>
   <div class="row">
     <div class="col-md-6">
       <label for="firstName" class="form-label fw-bold">First Name : &nbsp;</label>
-      <span>{{ data.user.firstName }}</span>
+      <span>{{ data.bookingData.firstName }}</span>
     </div>
     <div class="col-md-6">
       <label for="lastName" class="form-label fw-bold">Last Name : &nbsp;</label>
-      <span>{{ data.user.lastName }}</span>
+      <span>{{ data.bookingData.lastName }}</span>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
-      <label for="age" class="form-label fw-bold">Age : &nbsp;</label>
-      <span>{{ data.user.age }}</span>
+      <label for="age" class="form-label fw-bold">Country : &nbsp;</label>
+      <span>{{ data.bookingData.country }}</span>
     </div>
     <div class="col-md-6">
-      <label for="birthdate" class="form-label fw-bold">Birth date : &nbsp;</label>
-      <span>{{ data.user.birthdate | date }} </span>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-md-6">
       <label for="phone_no" class="form-label fw-bold">Phone no : &nbsp;</label>
-      <span>{{ data.user.phone_no }}</span>
+      <span>{{ data.bookingData.phone }}</span>
     </div>
     <div class="col-md-6">
       <label for="email" class="form-label fw-bold">Email : &nbsp;</label>
-      <span>{{ data.user.email }}</span>
+      <span>{{ data.bookingData.email }}</span>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-md-6">
-      <label for="address" class="form-label fw-bold">Address : &nbsp;</label>
-      <span>{{ data.user.address }}</span>
+      <label for="address" class="form-label fw-bold">Service Name : &nbsp;</label>
+      <span>{{ data.bookingData.bookingDetails.serviceName }}</span>
     </div>
     <div class="col-md-6">
-      <label for="country" class="form-label fw-bold">Country : &nbsp;</label>
-      <span>{{ data.user.country }}</span>
+      <label for="country" class="form-label fw-bold">booking Date : &nbsp;</label>
+      <span>{{ data.bookingData.bookingDetails.bookingDateTime | date : "MMM d, y, h:mm a" }}</span>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-md-6">
-      <label for="hobbies" class="form-label fw-bold">Hobbies : &nbsp;</label>
-      <span *ngFor="let item of data.user.hobbies ">{{ item }} &nbsp;</span>
+      <label for="hobbies" class="form-label fw-bold">Time : &nbsp;</label>
+      <span>{{ data.bookingData.bookingDetails.time }} &nbsp;</span>
+    </div>
+    <div class="col-md-6">
+      <label for="hobbies" class="form-label fw-bold">Price : &nbsp;</label>
+      <span>{{ data.bookingData.bookingDetails.price }} &nbsp;</span>
     </div>
   </div>
-  <button class="btn btn-outline-secondary rounded-1 closeBtn border border-secondary" type="button" mat-button mat-dialog-close  (click)="closeDialog()">Close</button>
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <label for="hobbies" class="form-label fw-bold">Message : &nbsp;</label>
+      <span>{{ data.bookingData.message }} &nbsp;</span>
+    </div>
+    <div class="col-md-6">
+      <label for="hobbies" class="form-label fw-bold">Address : &nbsp;</label>
+      <span>{{ data.bookingData.bookingDetails.address }} &nbsp;</span>
+    </div>
+  </div>
+  <button class="btn btn-outline-secondary rounded-1 closeBtn border border-secondary mt-4" type="button" mat-button mat-dialog-close  (click)="closeDialog()">Close</button>
 </div>

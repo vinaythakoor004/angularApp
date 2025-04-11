@@ -1,20 +1,26 @@
 <div class="container mt-4">
-  <app-search [allUserData]="allUserData" [userData]="userData" (searchEvent)="getSearch($event)"></app-search>
-  <div *ngIf="userData.length" class="tableDiv">
+  <app-search [allBookingData]="allBookingData" [bookingData]="bookingData" (searchEvent)="getSearch($event)"></app-search>
+  <div *ngIf="bookingData.length" class="tableDiv">
     <table class="table table-bordered">
       <thead>
         <tr>
           <th class="text-center" scope="col" title="Click on id to see user details"><span title="Click on id to see user details">#</span></th>
-          <th scope="col">First name</th>
-          <th scope="col">Last name</th>
+          <th scope="col">Name</th>
+          <th scope="col">Service Name</th>
+          <th scope="col">Time</th>
+          <th scope="col">Price</th>
+          <th scope="col">Booking date</th>
           <th scope="col">Country</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of userData; let i = index; trackBy: identify">
+        <tr *ngFor="let item of bookingData; let i = index; trackBy: identify">
           <th class="text-center" scope="row"><span (click)="openDialog('100', '100', item)" class="idClass">{{item.id}}</span></th>
-          <td>{{item.firstName}}</td>
-          <td>{{item.lastName}}</td>
+          <td>{{item.firstName}}&nbsp;{{item.lastName}}</td>
+          <td>{{item.bookingDetails.serviceName}}</td>
+          <td>{{item.bookingDetails.time}}</td>
+          <td>{{item.bookingDetails.price}}</td>
+          <td>{{item.bookingDetails.bookingDateTime | date : "MMM d, y, h:mm a" }}</td>
           <td>{{item.country}}</td>
         </tr>
       </tbody>

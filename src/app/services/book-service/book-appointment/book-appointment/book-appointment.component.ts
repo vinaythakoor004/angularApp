@@ -7,6 +7,8 @@ import { BookService } from '../../service/book.service';
 import { serviceDetails } from '../../model/serviceDetails';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { bookingData } from '../../../../home/model/bookingData';
+import { HomeService } from '../../../../home/service/home.service';
 
 @Component({
   selector: 'app-book-appointment',
@@ -19,6 +21,7 @@ export class BookAppointmentComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private bookService: BookService = inject(BookService);
+  private homeService: HomeService = inject(HomeService);
 
   selectedDate: Date | null = null;
   timeSlots: Array<string> = [
@@ -53,6 +56,7 @@ export class BookAppointmentComponent {
   isSlotInvalid: boolean = false;
   minDate: Date = new Date();
   maxDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+  allBookingData: Array<bookingData> = [];
 
   constructor(private fb: FormBuilder) {
     this.appointmentForm = this.fb.group({
@@ -70,6 +74,7 @@ export class BookAppointmentComponent {
   ngOnInit(): void {
     if (this.bookService.serviceDetails.length) {
       this.getServiceDetails();
+      this.allBookingData = this.homeService.allBookingDataCopy;
     } else {
       this.router.navigate(['services']);
     }
@@ -116,7 +121,31 @@ export class BookAppointmentComponent {
   }
 
   onSubmit(): void {
-    console.log(this.appointmentForm.value);
+    if (this.appointmentForm.valid) {
+      const appointmentData: bookingData = {
+        id: this.allBookingData.length,
+        firstName: this.appointmentForm.value.firstName,
+        lastName: this.appointmentForm.value.lastName,
+        email: this.appointmentForm.value.email,
+        phone: this.appointmentForm.value.phone,
+        message: this.appointmentForm.value.message,
+        country: 'USA',
+        bookingDetails: {
+          serviceName: this.selectesService.name,
+          bookingDateTime: this.appointmentForm.value.selectedDate,
+          address: this.selectesService.contactDetails,
+          time: this.selectesService.time,
+          price: this.selectesService.price
+        }
+      };
+      this.allBookingData.unshift(appointmentData);
+      this.homeService.allBookingDataCopy = this.allBookingData;
+      // this.homeService.bookingFormSubmitSubject.next(this.allBookingData);
+      console.log('Appointment booked successfully:', this.allBookingData);
+      // Perform further actions with the appointment data, such as sending it to a server
+      this.router.navigate(['home']);
+    } else {
+    }
   }
 
   backBtnClick(): void {

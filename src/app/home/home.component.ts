@@ -5,8 +5,9 @@ import { HomeService } from './service/home.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { User } from './model/uset';
-
+import { bookingData } from './model/bookingData';
+import { ChildActivationEnd, ChildActivationStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RoutesRecognized } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-home',
   imports: [CommonModule, SearchComponent, MatButtonModule],
@@ -15,28 +16,41 @@ import { User } from './model/uset';
 })
 
 export class HomeComponent {
-  allUserData: Array<User> = [];
-  userData: Array<User> = [];
+  allBookingData: Array<bookingData> = [];
+  bookingData: Array<bookingData> = [];
   pageSize: Array<number> = [];
   currentPage: number = 1;
   readonly dialog = inject(MatDialog);
-
-  constructor(private homeservice: HomeService) { }
+  private readonly router = inject(Router);
+  subscriptions: Subscription | undefined;
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getServiceData();
+    // this.subscriptions = this.homeService.bookingFormSubmitSubject.subscribe((data: Array<bookingData>) => {
+    //   console.log(data);
+    //   if (data.length > 0) { 
+    //     this.allBookingData = data;
+    //     this.getPageSize();
+    //     this.getPageData(1);
+    //   }
+    // })
   }
 
-  getUsers(): void {
-    this.homeservice.fetchUsers().subscribe({
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
+  }
+
+  getServiceData(): void {
+    this.homeService.getServiceData().subscribe({
       next: (data) => {
-        this.allUserData = data;
+        this.allBookingData = data;
         this.getPageSize();
         this.getPageData(1);
       },
       error: (err) => {
         console.log(err)
-        this.allUserData = [];
+        this.allBookingData = [];
         this.getPageSize();
         this.getPageData(1);
       }
@@ -45,7 +59,7 @@ export class HomeComponent {
   }
 
   getPageSize(): Array<number> {
-    let limit = Math.ceil(this.allUserData.length / 10);
+    let limit = Math.ceil(this.allBookingData.length / 10);
     return this.pageSize = [...Array(limit)].map((a, i) => i + 1)
   }
 
@@ -56,12 +70,12 @@ export class HomeComponent {
     }
     let start = (page - 1) * 10;
     let end = start + 10;
-    const newArr = this.allUserData.slice(start, end);
-    this.userData = structuredClone(newArr);
+    const newArr = this.allBookingData.slice(start, end);
+    this.bookingData = structuredClone(newArr);
   }
 
   getSearch(e: any): void {
-    this.allUserData = e.allUserData;
+    this.allBookingData = e.allBookingData;
     this.getPageData(1);
     this.getPageSize();
   }
@@ -74,12 +88,12 @@ export class HomeComponent {
     return item.id;
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, item: User): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, item: bookingData): void {
     this.dialog.open(DialogComponent, {
       data: {
-        user: item
+        bookingData: item
       },
-      width: '30rem',
+      width: '40rem',
       panelClass: 'custom-dialog-container',
       disableClose: true,
       enterAnimationDuration,
