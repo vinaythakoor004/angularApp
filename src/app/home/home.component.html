@@ -21,7 +21,7 @@
           <td>{{item.bookingDetails.time}}</td>
           <td>{{item.bookingDetails.price}}</td>
           <td>{{item.bookingDetails.bookingDateTime | date : "MMM d, y, h:mm a" }}</td>
-          <td>{{item.country}}</td>
+          <td class="countryCol">{{item.country}}<img src="assets/img/delete.svg" (click)="deleteRow(item)" alt="arrow_back" class="img-fluid deleteImg" /></td>
         </tr>
       </tbody>
     </table>

@@ -100,4 +100,11 @@ export class HomeComponent {
       exitAnimationDuration,
     });
   }
+
+  deleteRow(item: bookingData): void {
+    this.allBookingData = this.allBookingData.filter((data) => data.id !== item.id);
+    this.currentPage = this.bookingData.length == 1 && this.bookingData[0].id == item.id && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
+    this.getPageSize();
+    this.getPageData(this.currentPage);
+   }
 }
