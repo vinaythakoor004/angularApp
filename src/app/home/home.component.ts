@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { HomeService } from './service/home.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
+import { DialogComponent } from '../common/component/dialog/dialog.component';
 import { bookingData } from './model/bookingData';
 import { ChildActivationEnd, ChildActivationStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RoutesRecognized } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PopupService } from '../common/service/popup.service';
+import { PopupService } from '../common/service/popup/popup.service';
+import { AlertService } from '../common/service/alert/alert.service';
 @Component({
   selector: 'app-home',
   imports: [CommonModule, SearchComponent, MatButtonModule],
@@ -24,7 +25,7 @@ export class HomeComponent {
   readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
   subscriptions: Subscription | undefined;
-  constructor(private homeService: HomeService, private popupService: PopupService) { }
+  constructor(private homeService: HomeService, private popupService: PopupService, private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.getServiceData();
@@ -107,6 +108,7 @@ export class HomeComponent {
       this.currentPage = this.bookingData.length == 1 && this.bookingData[0].id == item.id && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
       this.getPageSize();
       this.getPageData(this.currentPage);
+      this.alertService.openSnackBar('Row: ' + item.id + ' deleted successfully');
     });
 
    }

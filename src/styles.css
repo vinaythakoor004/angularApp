@@ -93,6 +93,10 @@
   height: 2.5rem;
 }
 
+.alertClass {
+  margin-top: 4rem !important;
+}
+
 .aboutPageCss {
   background: papayawhip;
 }
