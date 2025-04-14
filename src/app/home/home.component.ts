@@ -8,6 +8,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { bookingData } from './model/bookingData';
 import { ChildActivationEnd, ChildActivationStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RoutesRecognized } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PopupService } from '../common/service/popup.service';
 @Component({
   selector: 'app-home',
   imports: [CommonModule, SearchComponent, MatButtonModule],
@@ -23,7 +24,7 @@ export class HomeComponent {
   readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
   subscriptions: Subscription | undefined;
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, private popupService: PopupService) { }
 
   ngOnInit(): void {
     this.getServiceData();
@@ -88,23 +89,25 @@ export class HomeComponent {
     return item.id;
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, item: bookingData): void {
-    this.dialog.open(DialogComponent, {
-      data: {
-        bookingData: item
-      },
-      width: '40rem',
-      panelClass: 'custom-dialog-container',
-      disableClose: true,
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
+  openDetailsDialog(item: bookingData): void {
+    const data = {
+        bookingData: item,
+        isBookingDetails: true,
+    }
+    this.popupService.openDialog(data, '40rem', 'custom-dialog-container');
   }
 
   deleteRow(item: bookingData): void {
-    this.allBookingData = this.allBookingData.filter((data) => data.id !== item.id);
-    this.currentPage = this.bookingData.length == 1 && this.bookingData[0].id == item.id && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
-    this.getPageSize();
-    this.getPageData(this.currentPage);
+    const data = {
+      isConfirmDialog: true,
+      selectdItem: item
+    } 
+    this.popupService.openDialog(data, '30rem', 'custom-dialog-container', () => {
+      this.allBookingData = this.allBookingData.filter((data) => data.id !== item.id);
+      this.currentPage = this.bookingData.length == 1 && this.bookingData[0].id == item.id && this.currentPage != 1 ? this.currentPage - 1 : this.currentPage;
+      this.getPageSize();
+      this.getPageData(this.currentPage);
+    });
+
    }
 }
