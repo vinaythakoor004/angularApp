@@ -1,20 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { bookingData } from '../model/bookingData';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HomeService {
-
-  constructor(private http: HttpClient) { }
-  allUSerDataCopy: Array<any> = [];
-  allUserData: Array<any> = []
+  constructor(private http: HttpClient) {}
+  allBookingDataCopy: Array<bookingData> = [];
+  allBookingData: Array<bookingData> = [];
+  bookingFormSubmitSubject = new BehaviorSubject<Array<bookingData>>([])
 
   fetchUsers(): Observable<any[]> {
-    return this.http.get<any[]>("./assets/json/users.json").pipe(map((data: any) => {
-      this.allUSerDataCopy = data;
-      return data;
-    }));
+    return this.http.get<any[]>('./assets/json/booking_data.json').pipe(
+      map((data: any) => {
+        this.allBookingDataCopy = data;
+        return data;
+      })
+    );
+  }
+
+  getServiceData(): Observable<any[]> {
+    if (this.allBookingDataCopy.length) {
+      return of(this.allBookingDataCopy);
+    } else {
+      return this.http.get<any[]>('./assets/json/booking_data.json').pipe(
+        map((data: any) => {
+          data.sort(
+            (a: bookingData, b: bookingData) =>
+              new Date(b.bookingDetails.bookingDateTime).getTime() -
+            new Date(a.bookingDetails.bookingDateTime).getTime()
+          );
+          this.allBookingDataCopy = data;
+          this.allBookingData = data;
+          return data;
+        })
+      );
+    }
   }
 }

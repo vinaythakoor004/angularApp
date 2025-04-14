@@ -42,3 +42,12 @@
     margin-right: 1rem;
     height: 2.5rem;
 }
+
+.countryCol {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteImg {
+    cursor: pointer;
+}

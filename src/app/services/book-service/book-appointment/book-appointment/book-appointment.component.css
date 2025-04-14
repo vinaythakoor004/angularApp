@@ -1,5 +1,9 @@
 .dateRow {
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
+}
+
+.appointmentForm {
+  margin-top: 6rem;
 }
 
 .slotbtn {
@@ -30,9 +34,20 @@
 }
 
 .userDetailsRow {
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
 }
 
 ::ng-deep .appointmentTabGroup .mdc-tab {
   display: none;
+  visibility: hidden;
+}
+
+::ng-deep .appointmentTabGroup .mat-mdc-tab-header {
+  display: none;
+  visibility: hidden;
+}
+
+.backBtn:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
