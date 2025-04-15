@@ -11,6 +11,8 @@
             (click)="navigatePage($event, 'contact')">Contact</a>
         <a #about class="nav-link" routerLink="about" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'about')">About</a>
+        <a #about class="nav-link" routerLink="login" [routerLinkActive]="['activeClass']"
+            (click)="navigatePage($event, 'login')">Log In</a>
     </header>
     <main class="main-content">
         <router-outlet />
