@@ -1,9 +1,10 @@
 <div class="loginClass row w-100">
     <div  class="col-4">
-        <div *ngFor="let user of userData; let i = index;" class="loginDetails">
+        <div *ngFor="let user of userData; let i = index;" class="loginDetails mt-3">
             <span>Role : {{ user.role }}</span><br/>
             <span>username: {{ user.username }}</span><br/>
             <span>password: {{ user.password }}</span><br/><br/>
+            <button type="submit" (click)="setLogin(user)" class="btn btn-secondary openSansRegular">Set</button>
         </div>
     </div>
     <div class="col-4">
@@ -24,6 +25,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-secondary openSansRegular">Log in</button>
+            <span *ngIf="!isLoginValid">Username or Password is invalid.</span>
             <span class="mt-4">
                 By signing in you accept our Terms of Service and acknowledge our Privacy Policy.
             </span>

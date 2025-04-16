@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AlertService } from '../common/service/alert/alert.service';
-import { ContactService } from '../contact/contact_service/contact.service';
 import { CommonModule } from '@angular/common';
 import { CommonService } from '../common/service/common/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +13,10 @@ import { CommonService } from '../common/service/common/common.service';
 export class LoginComponent {
   loginForm: FormGroup;
   userData: any = [];
-  constructor(private fb: FormBuilder, private alertService: AlertService, private contactService: ContactService,
-    private commonService: CommonService
+  isLoginValid: boolean = true;
+
+  constructor(private fb: FormBuilder,
+    private commonService: CommonService, private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['jakewilson', Validators.required],
@@ -34,14 +35,24 @@ export class LoginComponent {
           }
         })
   }
+
+  setLogin(user: any): void {
+    this.loginForm.patchValue({ username: user.username });
+    this.loginForm.patchValue({ password: user.password });
+    this.isLoginValid = true;
+  }
   
   onSubmit(): void {
-    console.log(this.loginForm.value);
     if (this.loginForm.valid) {
-      this.alertService.openSnackBar('Data saved successfully!');
-      this.contactService.saveContactFormData(this.loginForm.value).subscribe({
+      this.commonService.checkLoginDetails(this.loginForm.value, this.userData).subscribe({
         next: (data) => {
-          alert(JSON.stringify(data));
+          this.commonService.isLoggedIn = data.isValid;
+          this.isLoginValid = data.isValid;
+          this.loginForm.patchValue({ username: data.userDetails.username });
+          this.loginForm.patchValue({ password: data.userDetails.password });
+          if (data.isValid) {
+            this.router.navigate(['/home']);
+          }
         },
         error: (err) => {
           alert('Error please try again!');
