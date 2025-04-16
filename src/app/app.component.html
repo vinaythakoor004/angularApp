@@ -25,7 +25,10 @@
     </footer>
 </div>
 
-<div popover id="mydiv">
+<div popover id="mydiv" class="border border-dark">
+    <div class="popover-arrow-wrapper">
+        <div class="popover-arrow"></div>
+    </div>
     <button class="closeBtn" popovertarget="mydiv" popovertargetaction="hide"><img class="img-responsive closeImg" src="assets/img/close.svg"></button><br/>
     <div class="p-2">
         <span class="openSansRegular">Name: {{ loginUserDetails.name }}</span><br/>
