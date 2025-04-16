@@ -11,8 +11,8 @@
             (click)="navigatePage($event, 'contact')">Contact</a>
         <a #about class="nav-link" routerLink="about" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'about')">About</a>
-        <a #about class="nav-link" [routerLinkActive]="['activeClass']"
-            (click)="openAccountPopup()"><img class="img-responsive aboutImg" src="assets/img/account_circle.svg"></a>
+        <a ></a>
+            <button #about class="nav-link" [routerLinkActive]="['activeClass']" popovertarget="mydiv"><img class="img-responsive aboutImg" src="assets/img/account_circle.svg" popovertarget="mydiv"></button>
         <a #about *ngIf="!isLoggedIn()" class="nav-link" routerLink="login" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'login')">Log In</a>
     </header>
@@ -24,3 +24,12 @@
         <p>&copy; 2025 Your Company. All rights reserved.</p>
     </footer>
 </div>
+
+<div popover id="mydiv">
+    <button class="closeBtn" popovertarget="mydiv" popovertargetaction="hide"><img class="img-responsive closeImg" src="assets/img/close.svg"></button><br/>
+    <div class="p-2">
+        <span class="openSansRegular">Name: {{ loginUserDetails.name }}</span><br/>
+        <span class="openSansRegular">Email: {{ loginUserDetails.email }}</span><br/>
+        <span class="openSansRegular">Role: {{ loginUserDetails.role }}</span><br/>
+    </div>
+  </div>

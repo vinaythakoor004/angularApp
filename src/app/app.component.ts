@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonService } from './common/service/common/common.service';
 import { PopupService } from './common/service/popup/popup.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
-  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive],
+  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive, MatTooltipModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -14,7 +15,8 @@ export class AppComponent {
   title = 'AngularApp';
   routeName: string = "home"; 
   currentRoute: string = "";
-  isLoggedUserIn: boolean = false
+  isLoggedUserIn: boolean = false;
+  loginUserDetails: any= {};
 
   constructor(
     private router: Router, private location: Location, private commonService: CommonService, private popupService: PopupService
@@ -25,6 +27,10 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+  }
+  
+  ngDoCheck() {
+    this.loginUserDetails = this.commonService.loggedInUser;
   }
 
   navigatePage(e: any, routeName: any) {

@@ -21,3 +21,19 @@
     color: white;
     margin: 0px 0.2rem;
 }
+
+#mydiv {
+    border-radius: 4px;
+    background-color: white;
+    margin-right: 0.2rem;
+    margin-top: 4.2rem;
+}
+
+.closeBtn {
+    display: contents;
+}
+
+.closeImg {
+    margin-left: 13rem;
+}
+  
