@@ -10,6 +10,7 @@ import { ChildActivationEnd, ChildActivationStart, NavigationCancel, NavigationE
 import { Subscription } from 'rxjs';
 import { PopupService } from '../common/service/popup/popup.service';
 import { AlertService } from '../common/service/alert/alert.service';
+import { CommonService } from '../common/service/common/common.service';
 @Component({
   selector: 'app-home',
   imports: [CommonModule, SearchComponent, MatButtonModule],
@@ -25,10 +26,12 @@ export class HomeComponent {
   readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
   subscriptions: Subscription | undefined;
-  constructor(private homeService: HomeService, private popupService: PopupService, private alertService: AlertService) { }
+  loggedInUser: any = {};
+  constructor(private homeService: HomeService, private popupService: PopupService, private alertService: AlertService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.getServiceData();
+    this.loggedInUser = this.commonService.loggedInUser;
     // this.subscriptions = this.homeService.bookingFormSubmitSubject.subscribe((data: Array<bookingData>) => {
     //   console.log(data);
     //   if (data.length > 0) { 

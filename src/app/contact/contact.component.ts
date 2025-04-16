@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactService } from './contact_service/contact.service';
+import { AlertService } from '../common/service/alert/alert.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +13,7 @@ import { ContactService } from './contact_service/contact.service';
 export class ContactComponent {
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private contactService: ContactService) {
+  constructor(private fb: FormBuilder, private contactService: ContactService, private alertService: AlertService) {
     this.contactForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -25,6 +26,7 @@ export class ContactComponent {
   onSubmit(): void {
     console.log(this.contactForm.value);
     if (this.contactForm.valid) {
+      this.alertService.openSnackBar('Data saved successfully!');
       this.contactService.saveContactFormData(this.contactForm.value).subscribe({
         next: (data) => {
           alert(JSON.stringify(data));

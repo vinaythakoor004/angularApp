@@ -9,6 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { bookingData } from '../../../../home/model/bookingData';
 import { HomeService } from '../../../../home/service/home.service';
+import { AlertService } from '../../../../common/service/alert/alert.service';
 
 @Component({
   selector: 'app-book-appointment',
@@ -58,7 +59,7 @@ export class BookAppointmentComponent {
   maxDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
   allBookingData: Array<bookingData> = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private alertService: AlertService) {
     this.appointmentForm = this.fb.group({
       selectedDate: ['', Validators.required],
       selectedSlot: ['', Validators.required],
@@ -140,6 +141,7 @@ export class BookAppointmentComponent {
       };
       this.allBookingData.unshift(appointmentData);
       this.homeService.allBookingDataCopy = this.allBookingData;
+      this.alertService.openSnackBar('Appointment booked successfully!');
       // this.homeService.bookingFormSubmitSubject.next(this.allBookingData);
       console.log('Appointment booked successfully:', this.allBookingData);
       // Perform further actions with the appointment data, such as sending it to a server
