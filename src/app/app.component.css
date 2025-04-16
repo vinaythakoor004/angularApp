@@ -63,3 +63,7 @@
     margin-top: -23px; 
     margin-left: 11.5rem;
     }
+
+    .logoutBtn {
+        cursor: pointer;
+    }

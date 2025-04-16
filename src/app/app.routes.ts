@@ -8,6 +8,7 @@ import { BookAppointmentComponent } from './services/book-service/book-appointme
 import { PlansComponent } from './plans/plans.component';
 import { LoginComponent } from './login/login.component';
 import { RouteGuardService } from './common/service/route-guard/route-guard.service';
+import { PageNotFoundComponent } from './common/component/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,8 @@ export const routes: Routes = [
       { path: 'contact', component: ContactComponent, canActivate: [RouteGuardService] },
       { path: 'about', component: AboutComponent, canActivate: [RouteGuardService] },
       { path: 'login', component: LoginComponent },
+      { path: '**', component: PageNotFoundComponent }
+
     ],
   },
 ];

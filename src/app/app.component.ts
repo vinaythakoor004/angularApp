@@ -45,7 +45,17 @@ export class AppComponent {
     const data = {
     }
     this.popupService.openDialog(data, '40rem', 'account-dialog-container');
-  
+  }
+
+  logoutUser(): void {
+    const data = {
+      isLogoutDialog: true
+    } 
+    this.popupService.openDialog(data, '30rem', 'custom-dialog-container', () => {
+      this.commonService.isLoggedIn = false;
+      this.commonService.loggedInUser = {};
+      this.router.navigate(['/login']);    
+    });
   }
  
 }

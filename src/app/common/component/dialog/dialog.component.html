@@ -68,3 +68,11 @@
     <button class="d-inline btn btn-outline-secondary rounded-1 closeBtn border border-secondary mt-4" type="button" mat-button mat-dialog-close  (click)="closeDialog()">Ok</button>
   </div>
 </div>
+
+<div *ngIf="data.isLogoutDialog" class="container userDetails">
+  <span>Are you sure you want to logout?</span>
+  <div class="d-flex justify-content-evenly">
+    <button class="d-inline btn btn-outline-secondary rounded-1 closeBtn border border-secondary mt-4" type="button" mat-button mat-dialog-close>Cancel</button>
+    <button class="d-inline btn btn-outline-secondary rounded-1 closeBtn border border-secondary mt-4" type="button" mat-button mat-dialog-close  (click)="closeDialog()">Ok</button>
+  </div>
+</div>
