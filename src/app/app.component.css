@@ -21,3 +21,49 @@
     color: white;
     margin: 0px 0.2rem;
 }
+
+#mydiv {
+    border-radius: 4px;
+    background-color: white;
+    margin-right: 0.2rem;
+    margin-top: 4.2rem;
+}
+
+.closeBtn {
+    display: contents;
+}
+
+.closeImg {
+    margin-left: 13rem;
+}
+
+.popover-arrow-wrapper {
+    position: inherit;
+    width: 0;
+    height: 0;
+}
+
+.popover-arrow-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -24px;
+    left: 11.5rem;
+    z-index: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid black;
+    }
+
+  .popover-arrow {
+    position: inherit;
+    z-index: 1;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid white;
+    margin-top: -23px; 
+    margin-left: 11.5rem;
+    }
+
+    .logoutBtn {
+        cursor: pointer;
+    }
