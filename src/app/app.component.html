@@ -1,4 +1,4 @@
-<div class="page-container aboutPageCss">
+<div class="page-container">
     <!-- [ngClass]="{ aboutPageCss: currentRoute == '/about' || currentRoute == '/services' }" -->
     <header *ngIf="isLoggedIn()" #navbar class="nav navbarClass fixed-top bg-dark">
         <a #home class="nav-link" aria-current="page" routerLink="home" [routerLinkActive]="['activeClass']"
@@ -21,7 +21,7 @@
     </main>
 
     <footer #navbar class="bd-footer footer nav navbarClass bg-dark">
-        <p>&copy; 2025 Your Company. All rights reserved.</p>
+        <p>&copy; {{ "footerText" | translate}}</p>
     </footer>
 </div>
 

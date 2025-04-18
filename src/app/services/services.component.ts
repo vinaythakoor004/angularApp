@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BookService } from './book-service/service/book.service';
 import { serviceDetails } from './book-service/model/serviceDetails';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-services',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslatePipe ],
   templateUrl: './services.component.html',
   styleUrl: './services.component.css',
 })

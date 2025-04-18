@@ -1,5 +1,5 @@
 <div class="container servicesDiv">
-    <div class="text-center mb-4"><span class="fs-1 openSansBold">Our Services</span><br><span class="fs-4 openSansRegular">What can we clean for you today</span></div>
+    <div class="text-center mb-4"><span class="fs-1 openSansBold">{{ "ourServices" | translate }}</span><br><span class="fs-4 openSansRegular">{{ "whatCanWeCleanForYouToday" | translate }}</span></div>
     <div class="row servicesRow border-top" *ngFor="let item of services">
         <div class="col-2 serviceImgCol">
             <img src="assets/img/{{ item.image }}" alt="{{ item.name }}" class="img-fluid serviceImg">
@@ -10,7 +10,7 @@
         </div>
         <div class="col-4 serviceBtnCol">
             <span class="fs-5 openSansRegular">{{ item.price }}</span>
-            <button class="btn btn-outline-warning rounded-0 border border-dark text-dark" id="searchBtn" type="button" (click)="checkService(item)">Book a Service</button>
+            <button class="btn btn-outline-warning rounded-1 border border-dark text-dark" id="searchBtn" type="button" (click)="checkService(item)">{{ "bookService" | translate }}</button>
         </div>
     </div>
     <hr>

@@ -3,17 +3,18 @@ import { Component, inject } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookService } from '../../service/book.service';
-import { serviceDetails } from '../../model/serviceDetails';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { bookingData } from '../../../../home/model/bookingData';
-import { HomeService } from '../../../../home/service/home.service';
-import { AlertService } from '../../../../common/service/alert/alert.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { BookService } from '../service/book.service';
+import { HomeService } from '../../../home/service/home.service';
+import { serviceDetails } from '../model/serviceDetails';
+import { bookingData } from '../../../home/model/bookingData';
+import { AlertService } from '../../../common/service/alert/alert.service';
 
 @Component({
   selector: 'app-book-appointment',
-  imports: [MatDatepickerModule, CommonModule, MatTabsModule, ReactiveFormsModule ],
+  imports: [MatDatepickerModule, CommonModule, MatTabsModule, ReactiveFormsModule, TranslatePipe ],
   templateUrl: './book-appointment.component.html',
   styleUrl: './book-appointment.component.css',
   providers: [provideNativeDateAdapter()],

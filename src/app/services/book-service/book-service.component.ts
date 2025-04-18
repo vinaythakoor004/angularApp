@@ -3,10 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { serviceDetails } from './model/serviceDetails';
 import { BookService } from './service/book.service';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-book-service',
-  imports: [ CommonModule ],
+  imports: [ CommonModule, TranslatePipe ],
   templateUrl: './book-service.component.html',
   styleUrl: './book-service.component.css',
 })
