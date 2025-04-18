@@ -1,21 +1,21 @@
 <div class="container">
     <form class="appointmentForm" [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
-        <div class="backBtn" (click)="backBtnClick()"><img src="assets/img/arrow_back.svg" alt="arrow_back" class="img-fluid" />back</div>
+        <div class="backBtn" (click)="backBtnClick()"><img src="assets/img/arrow_back.svg" alt="arrow_back" class="img-fluid" />{{ "back" | translate }}</div>
         <mat-tab-group #appointmentTab animationDuration="0ms" class="mt-5 appointmentTabGroup">
             <mat-tab label="First" [hidden]="true">
                 <div class="row dateRow w-100">
                     <div class="col-4">
                         <span class="d-flex w-100 openSansSemiBold ms-4">
-                            Select a Date and Time
+                            {{ "selectDateAndTime" | translate }}
                         </span>
                         <hr />
                         <mat-calendar class="datePicker" [selected]="selectedDate" [minDate]="minDate" [maxDate]="maxDate"
                             (selectedChange)="onDateSelect($event)"></mat-calendar>
-                        <span *ngIf="isDateInvalid" class="form-text errorMsg text-danger">Date is required.</span>
+                        <span *ngIf="isDateInvalid" class="form-text errorMsg text-danger">{{ "dateIsRequired" | translate }}</span>
                     </div>
                     <div class="col-4 slotDiv">
                         <span class="d-flex w-100 openSansSemiBold ms-4">
-                            Avaiable Time Slots for, {{ selectedDate | date: 'fullDate' }}
+                            {{ "avaiableTimeSlots" | translate }}{{ selectedDate | date: 'fullDate' }}
                         </span>
                         <hr/>
                         <div class="row mt-5">
@@ -23,12 +23,12 @@
                                 <button class="btn btn-outline-warning rounded-0 border border-dark text-dark slotbtn" [ngClass]="{'active': selectedSlotIndex === i}"
                                     id="searchBtn" type="button" (click)="selectSlot(slot, i)">{{ slot }}</button>
                             </div>
-                            <span *ngIf="isSlotInvalid" class="form-text errorMsg text-danger">Time slot is required.</span>
+                            <span *ngIf="isSlotInvalid" class="form-text errorMsg text-danger">{{ "timeSlotIsRequired" | translate }}</span>
                         </div>
                     </div>
                     <div class="col-4 serviceDetailsCol">
                         <span class="d-flex w-100 openSansSemiBold ms-4">
-                            Service details
+                            {{ "serviceDetails" | translate }}
                         </span>
                         <hr />
                         <span class="mt-2 ms-4">{{ selectesService.name }}</span>
@@ -38,7 +38,7 @@
                         <span class="mt-2 ms-4">{{ selectesService.price }}</span>
 
                         <button class="btn btn-outline-dark rounded-0 border border-dark ms-4 nextBtn"
-                            id="searchBtn" type="button" (click)="nextTab(appointmentTab, 'next')">Next</button>
+                            id="searchBtn" type="button" (click)="nextTab(appointmentTab, 'next')">{{ "next" | translate }}</button>
                     </div>
                 </div>
             </mat-tab>
@@ -46,53 +46,46 @@
                 <div class="row w-100 userDetailsRow">
                     <div class="col-6">
                         <span class="d-flex w-100 openSansSemiBold fs-4 ms-4">
-                            Client Details
+                            {{ "clientDetails" | translate }}
                         </span>
                         <hr />
                     <div class="row mt-5">
                             <div class="mb-3 col-6">
-                                <label for="exampleInputLastname" class="form-label openSansRegular">First name
-                                    (required)</label>
+                                <label for="exampleInputLastname" class="form-label openSansRegular">{{ "firstNameRequired" | translate }}</label>
                                 <input type="text" class="form-control" autocomplete="off" id="exampleInputLastname"
                                     formControlName="firstName">
                                 <div *ngIf="appointmentForm.get('firstName')?.invalid && appointmentForm.get('firstName')?.touched"
                                     class="form-text errorMsg text-danger">
-                                    First Name is required.
+                                    {{ "FirstNameIsRequired" | translate }}
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputFirstname" class="form-label openSansRegular">Last name
-                                    (required)</label>
+                                <label for="exampleInputFirstname" class="form-label openSansRegular">{{ "lastNameRequired" | translate }}</label>
                                 <input type="text" class="form-control" autocomplete="off" id="exampleInputLastname"
                                     formControlName="lastName">
                                 <div *ngIf="appointmentForm.get('lastName')?.invalid && appointmentForm.get('lastName')?.touched"
                                     class="form-text errorMsg text-danger">
-                                    Last Name is required.
+                                     {{ "LastNameIsRequired" | translate }}
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputEmail1" class="form-label openSansRegular">Email address
-                                    (required)</label>
+                                <label for="exampleInputEmail1" class="form-label openSansRegular">{{ "emailRequired" | translate }}</label>
                                 <input type="email" class="form-control" autocomplete="off" id="exampleInputEmail1"
                                     formControlName="email" aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text openSansRegular">We'll never share your email with anyone
-                                    else.</div>
+                                <div id="emailHelp" class="form-text openSansRegular">{{ "emailShare" | translate }}</div>
                                 <div *ngIf="appointmentForm.get('email')?.invalid && appointmentForm.get('email')?.touched"
-                                    class="form-text errorMsg text-danger">
-                                    email is required.
-                                </div>
+                                    class="form-text errorMsg text-danger">{{ "emailIsRequired" | translate }}</div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputSubject" class="form-label openSansRegular">Phone</label>
+                                <label for="exampleInputSubject" class="form-label openSansRegular">{{ "phone" | translate }}</label>
                                 <input type="text" class="form-control" autocomplete="off" id="exampleInputPhone"
                                     formControlName="phone">
                                 <div *ngIf="appointmentForm.get('phone')?.invalid && appointmentForm.get('phone')?.touched"
-                                    class="form-text errorMsg text-danger">
-                                    phone no. is invalid.
+                                    class="form-text errorMsg text-danger">{{ "phoneNoIsInvalid" | translate }}
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
-                                <label for="exampleInputMessage" class="form-label openSansRegular">Your message</label>
+                                <label for="exampleInputMessage" class="form-label openSansRegular">{{ "yourMessage" | translate }}</label>
                                 <textarea type="text" class="form-control message" autocomplete="off" id="exampleInputMessage"
                                     formControlName="message"></textarea>
                             </div>
@@ -101,7 +94,7 @@
                     </div>
                     <div class="col-6 serviceDetailsCol">
                         <span class="d-flex w-100 openSansSemiBold fs-4 ms-4">
-                            Booking Details
+                            {{ "bookingDetails" | translate }}
                         </span>
                         <hr/>
                         <span class="mt-2 ms-4">{{ selectesService.name }}</span>
@@ -109,15 +102,15 @@
                         <span class="mt-2 ms-4">{{ selectesService.contactDetails }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.time }}</span>
                         <hr/>
-                        <span class="mt-2 ms-4">Payment Details</span>
+                        <span class="mt-2 ms-4">{{ "paymentDetails" | translate }}</span>
                         <span class="mt-2 ms-4">{{ selectesService.price }}</span>
                         <hr/>
-                        <span class="mt-2 ms-4">By completing your booking, you agree to receive related notifications.</span>
+                        <span class="mt-2 ms-4">{{ "byCompletingYourBooking" | translate }}</span>
                         <div>
                             <button class="btn btn-outline-dark rounded-0 border border-dark ms-4 nextBtn"
-                            id="searchBtn" type="button" (click)="nextTab(appointmentTab, 'prev')">Back</button>
+                            id="searchBtn" type="button" (click)="nextTab(appointmentTab, 'prev')">{{ "back" | translate }}</button>
                             <button class="btn btn-outline-dark rounded-0 border border-dark ms-4 nextBtn"
-                            id="searchBtn" type="submit" [disabled]="!appointmentForm.valid" (click)="booAppontment()">Book now</button>
+                            id="searchBtn" type="submit" [disabled]="!appointmentForm.valid" (click)="booAppontment()">{{ "bookNow" | translate }}</button>
                         </div>
 
                     </div>

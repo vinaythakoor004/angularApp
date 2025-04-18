@@ -4,10 +4,12 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { CommonService } from './common/service/common/common.service';
 import { PopupService } from './common/service/popup/popup.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { TranslationService } from './common/service/translation/translation.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive, MatTooltipModule],
+  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive, MatTooltipModule, TranslatePipe ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -19,7 +21,9 @@ export class AppComponent {
   loginUserDetails: any= {};
 
   constructor(
-    private router: Router, private location: Location, private commonService: CommonService, private popupService: PopupService
+    private router: Router, private location: Location, private commonService: CommonService, private popupService: PopupService,
+    private translate: TranslateService,
+
   ) {
     this.currentRoute = "";
     this.currentRoute = this.location.path();
