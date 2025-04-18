@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container pageCss">
     <!-- [ngClass]="{ aboutPageCss: currentRoute == '/about' || currentRoute == '/services' }" -->
     <header *ngIf="isLoggedIn()" #navbar class="nav navbarClass fixed-top bg-dark">
         <a #home class="nav-link" aria-current="page" routerLink="home" [routerLinkActive]="['activeClass']"
@@ -20,8 +20,34 @@
         <router-outlet />
     </main>
 
-    <footer #navbar class="bd-footer footer nav navbarClass bg-dark">
-        <p>&copy; {{ "footerText" | translate}}</p>
+    <footer #navbar class="bd-footer footer nav navbarClass bg-dark p-0">
+        <div class="row w-100 m-auto mt-3 footerClass">
+            <div class="col-3">
+                <span class="openSansRegular fs-4">The cleanic</span>
+                <div class="mt-2">Follow us on 
+                    <img class="img-responsive followImg" src="assets/img/instagram.svg">
+                    <img class="img-responsive followImg" src="assets/img/facebook.svg">
+                    <img class="img-responsive followImg" src="assets/img/youtube.svg">
+                    <img class="img-responsive followImg" src="assets/img/whatsapp.svg">
+                </div>
+            </div>
+            <div class="col-3 d-grid">
+                <span class="fs-5">Leagal</span><br/>
+                <span>Privacy Policy</span>
+                <span>Terms and Conditions</span>
+                <span>Refund Policy</span>
+            </div>
+            <div class="col-3">
+                <span class="fs-5">Opening Hours</span><br/><br/>
+                <span>Mon - Fri 11 am - 8 pm</span><br/>
+                <span>Sat 11 am - 6 pm</span>
+            </div>
+            <div class="col-3">
+                <span class="fs-5">Contact</span><br/><br/>
+                <span>121 Rock Sreet, 21 Avenue, New York, NY 92103-9000</span>
+            </div>
+        </div>
+        <span class="m-auto mt-3 mb-3">&copy; {{ "footerText" | translate}}</span>
     </footer>
 </div>
 
