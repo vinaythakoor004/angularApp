@@ -12,6 +12,7 @@ export class bookingData {
         address: string;
         price: string;
         time: string;
+        slot: string;
     }
 
     constructor(
@@ -28,6 +29,7 @@ export class bookingData {
             address: string;
             price: string;
             time: string;
+            slot: string;
         }
     ) {
         this.id = id;

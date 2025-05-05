@@ -11,9 +11,19 @@ export class HomeService {
   allBookingDataCopy: Array<bookingData> = [];
   allBookingData: Array<bookingData> = [];
   bookingFormSubmitSubject = new BehaviorSubject<Array<bookingData>>([])
-
+  isEdit: boolean = false;
+  editItem: any = {};
   fetchUsers(): Observable<any[]> {
     return this.http.get<any[]>('./assets/json/booking_data.json').pipe(
+      map((data: any) => {
+        this.allBookingDataCopy = data;
+        return data;
+      })
+    );
+  }
+
+  getBlogs(): Observable<any[]> {
+    return this.http.get<any[]>('/api/blogs').pipe(
       map((data: any) => {
         this.allBookingDataCopy = data;
         return data;
