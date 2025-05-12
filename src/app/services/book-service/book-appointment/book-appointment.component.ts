@@ -91,6 +91,9 @@ export class BookAppointmentComponent {
       if (!this.bookService.serviceDetails.length) {
         this.bookService.getServiceDetails().subscribe({
           next: (data) => {
+            if (!this.allBookingData.length) {
+              this.allBookingData = this.homeService.allBookingDataCopy;              
+            }
             this.bookService.serviceDetails = data;
             this.setFormData(this.homeService.editItem);
           },
@@ -102,6 +105,9 @@ export class BookAppointmentComponent {
         );
       } else {
         this.setFormData(this.homeService.editItem);
+        if (!this.allBookingData.length) {
+          this.allBookingData = this.homeService.allBookingDataCopy;              
+        }
       }
     }else if (this.bookService.serviceDetails.length) {
       this.getServiceDetails();
@@ -156,7 +162,7 @@ export class BookAppointmentComponent {
   onSubmit(): void {
     if (this.appointmentForm.valid) {
       const appointmentData: bookingData = {
-        id: this.allBookingData.length,
+        id: this.homeService.isEdit ? this.homeService.editItem.id : this.allBookingData.length,
         firstName: this.appointmentForm.value.firstName,
         lastName: this.appointmentForm.value.lastName,
         email: this.appointmentForm.value.email,
@@ -172,15 +178,28 @@ export class BookAppointmentComponent {
           slot: this.appointmentForm.value.selectedSlot,
         },
       };
-      this.allBookingData.unshift(appointmentData);
+      if (this.homeService.isEdit) {
+        this.updateBookingData(this.allBookingData, appointmentData);
+      } else {
+        this.allBookingData.unshift(appointmentData);
+      }
       this.homeService.allBookingDataCopy = this.allBookingData;
       this.alertService.openSnackBar('Appointment booked successfully!');
       // this.homeService.bookingFormSubmitSubject.next(this.allBookingData);
       console.log('Appointment booked successfully:', this.allBookingData);
       // Perform further actions with the appointment data, such as sending it to a server
+      this.homeService.isEdit = false;
       this.router.navigate(['home']);
     } else {
     }
+  }
+
+  updateBookingData(allBookingData: Array<bookingData>, appointmentData: bookingData): void {
+    allBookingData.forEach((item, index) => {
+    if (item.id == appointmentData.id) {
+      allBookingData[index] = appointmentData;
+    }
+    });
   }
 
   backBtnClick(): void {
@@ -204,7 +223,6 @@ export class BookAppointmentComponent {
       this.selectedDate = this.appointmentForm.value.selectedDate;
       this.selectedSlotIndex = this.timeSlots.findIndex(item => item === this.appointmentForm.value.selectedSlot);
       this.selectesService = this.bookService.getServiceDetailsByName(item.bookingDetails.serviceName);
-      this.homeService.isEdit = false;
     }
   }
 }

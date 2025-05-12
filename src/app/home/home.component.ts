@@ -102,6 +102,7 @@ export class HomeComponent {
 
   deleteRow(item: bookingData): void {
     const data = {
+      isDelete: true,
       isConfirmDialog: true,
       selectdItem: item
     } 
@@ -116,6 +117,7 @@ export class HomeComponent {
 
    editRow(item: bookingData): void {
     const data = {
+      isEdit: true,
       isConfirmDialog: true,
       selectdItem: item
     }
