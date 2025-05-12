@@ -45,6 +45,7 @@
     "hours": "<span class='fw-bold position-absolute'>Hours</span><br>Mon – Fri 11 am – 8 pm, <br>Sat 11 am – 6 pm",
     "confirmLogout": "Are you sure you want to logout?",
     "confirmDelete": "Are you sure you want to delete row:",
+    "confirmEdit": "Are you sure you want to edit row:",
     "checkout": "Checkout",
     "user": "User",
     "payment": "Payment",

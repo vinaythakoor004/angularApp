@@ -79,6 +79,9 @@
               "buildTarget": "AngularApp:build:development"
             }
           },
+          "options": {
+          "proxyConfig": "src/proxy.config.json"
+        },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {

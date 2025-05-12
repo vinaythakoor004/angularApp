@@ -4,7 +4,12 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BookService } from '../service/book.service';
 import { HomeService } from '../../../home/service/home.service';
@@ -14,7 +19,13 @@ import { AlertService } from '../../../common/service/alert/alert.service';
 
 @Component({
   selector: 'app-book-appointment',
-  imports: [MatDatepickerModule, CommonModule, MatTabsModule, ReactiveFormsModule, TranslatePipe ],
+  imports: [
+    MatDatepickerModule,
+    CommonModule,
+    MatTabsModule,
+    ReactiveFormsModule,
+    TranslatePipe,
+  ],
   templateUrl: './book-appointment.component.html',
   styleUrl: './book-appointment.component.css',
   providers: [provideNativeDateAdapter()],
@@ -57,7 +68,9 @@ export class BookAppointmentComponent {
   isDateInvalid: boolean = false;
   isSlotInvalid: boolean = false;
   minDate: Date = new Date();
-  maxDate: Date = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+  maxDate: Date = new Date(
+    new Date().setFullYear(new Date().getFullYear() + 1)
+  );
   allBookingData: Array<bookingData> = [];
 
   constructor(private fb: FormBuilder, private alertService: AlertService) {
@@ -74,7 +87,29 @@ export class BookAppointmentComponent {
   }
 
   ngOnInit(): void {
-    if (this.bookService.serviceDetails.length) {
+    if (this.homeService.isEdit) {
+      if (!this.bookService.serviceDetails.length) {
+        this.bookService.getServiceDetails().subscribe({
+          next: (data) => {
+            if (!this.allBookingData.length) {
+              this.allBookingData = this.homeService.allBookingDataCopy;              
+            }
+            this.bookService.serviceDetails = data;
+            this.setFormData(this.homeService.editItem);
+          },
+          error: (error) => {
+            console.error('Error fetching service details:', error);
+            this.bookService.serviceDetails = []; // Handle error case by setting services to an empty array
+          }
+        }
+        );
+      } else {
+        this.setFormData(this.homeService.editItem);
+        if (!this.allBookingData.length) {
+          this.allBookingData = this.homeService.allBookingDataCopy;              
+        }
+      }
+    }else if (this.bookService.serviceDetails.length) {
       this.getServiceDetails();
       this.allBookingData = this.homeService.allBookingDataCopy;
     } else {
@@ -89,7 +124,6 @@ export class BookAppointmentComponent {
         this.bookService.getServiceDetailsByName(serviceName);
     });
   }
-
 
   onDateSelect(date: Date): void {
     this.selectedDate = date;
@@ -111,7 +145,10 @@ export class BookAppointmentComponent {
   }
 
   nextTab(formTab: any, btn: string): void {
-    if (!this.appointmentForm.value.selectedDate || !this.appointmentForm.value.selectedSlot) {
+    if (
+      !this.appointmentForm.value.selectedDate ||
+      !this.appointmentForm.value.selectedSlot
+    ) {
       this.isDateInvalid = !this.appointmentForm.value.selectedDate;
       this.isSlotInvalid = !this.appointmentForm.value.selectedSlot;
       console.log('Please select a date and time slot before proceeding.');
@@ -125,7 +162,7 @@ export class BookAppointmentComponent {
   onSubmit(): void {
     if (this.appointmentForm.valid) {
       const appointmentData: bookingData = {
-        id: this.allBookingData.length,
+        id: this.homeService.isEdit ? this.homeService.editItem.id : this.allBookingData.length,
         firstName: this.appointmentForm.value.firstName,
         lastName: this.appointmentForm.value.lastName,
         email: this.appointmentForm.value.email,
@@ -137,22 +174,55 @@ export class BookAppointmentComponent {
           bookingDateTime: this.appointmentForm.value.selectedDate,
           address: this.selectesService.contactDetails,
           time: this.selectesService.time,
-          price: this.selectesService.price
-        }
+          price: this.selectesService.price,
+          slot: this.appointmentForm.value.selectedSlot,
+        },
       };
-      this.allBookingData.unshift(appointmentData);
+      if (this.homeService.isEdit) {
+        this.updateBookingData(this.allBookingData, appointmentData);
+      } else {
+        this.allBookingData.unshift(appointmentData);
+      }
       this.homeService.allBookingDataCopy = this.allBookingData;
       this.alertService.openSnackBar('Appointment booked successfully!');
       // this.homeService.bookingFormSubmitSubject.next(this.allBookingData);
       console.log('Appointment booked successfully:', this.allBookingData);
       // Perform further actions with the appointment data, such as sending it to a server
+      this.homeService.isEdit = false;
       this.router.navigate(['home']);
     } else {
     }
   }
 
+  updateBookingData(allBookingData: Array<bookingData>, appointmentData: bookingData): void {
+    allBookingData.forEach((item, index) => {
+    if (item.id == appointmentData.id) {
+      allBookingData[index] = appointmentData;
+    }
+    });
+  }
+
   backBtnClick(): void {
-    this.router.navigate(['services/book-service'], { queryParams: { name: this.selectesService.name } });
+    this.router.navigate(['services/book-service'], {
+      queryParams: { name: this.selectesService.name },
+    });
     this.appointmentForm.reset();
+  }
+
+  setFormData(item: bookingData): void {
+    if (item) {
+      this.appointmentForm.setValue({
+        selectedDate: new Date(item.bookingDetails.bookingDateTime),
+        selectedSlot: item.bookingDetails.slot || "",
+        firstName: item.firstName,
+        lastName: item.lastName,
+        email: item.email,
+        phone: item.phone,
+        message: item.message,
+      });
+      this.selectedDate = this.appointmentForm.value.selectedDate;
+      this.selectedSlotIndex = this.timeSlots.findIndex(item => item === this.appointmentForm.value.selectedSlot);
+      this.selectesService = this.bookService.getServiceDetailsByName(item.bookingDetails.serviceName);
+    }
   }
 }

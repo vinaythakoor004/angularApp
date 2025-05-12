@@ -10,6 +10,7 @@ import { RouteGuardService } from './common/service/route-guard/route-guard.serv
 import { PageNotFoundComponent } from './common/component/page-not-found/page-not-found.component';
 import { BookAppointmentComponent } from './services/book-service/book-appointment/book-appointment.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ExampleComponent } from './example/example.component';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, canActivate: [RouteGuardService] },
+      { path: 'ex', component: ExampleComponent, canActivate: [RouteGuardService] },
       {
         path: 'services', canActivate: [RouteGuardService],
         children: [
@@ -30,7 +32,7 @@ export const routes: Routes = [
               },
               {
                 path: 'appointment', canActivate: [RouteGuardService],
-                component: BookAppointmentComponent,
+                loadComponent: () => import('./services/book-service/book-appointment/book-appointment.component').then(m => m.BookAppointmentComponent),
               },
             ],
           },

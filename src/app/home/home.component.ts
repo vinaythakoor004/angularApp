@@ -102,6 +102,7 @@ export class HomeComponent {
 
   deleteRow(item: bookingData): void {
     const data = {
+      isDelete: true,
       isConfirmDialog: true,
       selectdItem: item
     } 
@@ -112,6 +113,24 @@ export class HomeComponent {
       this.getPageData(this.currentPage);
       this.alertService.openSnackBar('Row: ' + item.id + ' deleted successfully');
     });
+   }
 
+   editRow(item: bookingData): void {
+    const data = {
+      isEdit: true,
+      isConfirmDialog: true,
+      selectdItem: item
+    }
+    this.popupService.openDialog(data, '30rem', 'custom-dialog-container', () => {
+      this.homeService.isEdit = true; 
+      this.homeService.editItem = item;
+      const url = '/services/book-service/appointment';
+      const params = {
+          queryParams: {
+              name: item.bookingDetails.serviceName
+          }
+      };
+      this.router.navigate([url], params);  
+    });
    }
 }
