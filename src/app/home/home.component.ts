@@ -30,7 +30,6 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.getServiceData();
-    this.getBlogs();
     this.loggedInUser = this.commonService.loggedInUser;
     // this.subscriptions = this.homeService.bookingFormSubmitSubject.subscribe((data: Array<bookingData>) => {
     //   console.log(data);
@@ -58,18 +57,6 @@ export class HomeComponent {
         this.allBookingData = [];
         this.getPageSize();
         this.getPageData(1);
-      }
-    }
-    )
-  }
-
-  getBlogs(): void {
-    this.homeService.getBlogs().subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err)
       }
     }
     )

@@ -11,6 +11,9 @@
             (click)="navigatePage($event, 'contact')">Contact</a>
         <a #about class="nav-link" routerLink="about" [routerLinkActive]="['activeClass']"
             (click)="navigatePage($event, 'about')">About</a>
+        <!-- <a #about class="nav-link" routerLink="ex" [routerLinkActive]="['activeClass']"
+            (click)="navigatePage($event, 'ex')">ex</a> -->
+
         <a ></a>
             <button #about class="nav-link" [routerLinkActive]="['activeClass']" popovertarget="mydiv"><img class="img-responsive aboutImg" src="assets/img/account_circle.svg" popovertarget="mydiv"></button>
         <a #about *ngIf="!isLoggedIn()" class="nav-link" routerLink="login" [routerLinkActive]="['activeClass']"

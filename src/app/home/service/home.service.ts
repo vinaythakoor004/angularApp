@@ -31,6 +31,30 @@ export class HomeService {
     );
   }
 
+  // getServiceData(): Observable<any[]> {
+  //   if (this.allBookingDataCopy.length) {
+  //     return of(this.allBookingDataCopy);
+  //   } else {
+  //     return this.http.get<any[]>('/api/bookings').pipe(
+  //       map((bookings: any) => {
+  //         if (bookings?.data?.length) {
+  //           bookings.data.sort(
+  //             (a: bookingData, b: bookingData) =>
+  //               new Date(b.bookingDetails.bookingDateTime).getTime() -
+  //             new Date(a.bookingDetails.bookingDateTime).getTime()
+  //           );
+  //           this.allBookingDataCopy = bookings.data;
+  //           this.allBookingData = bookings.data;
+  //           return bookings.data;
+  //         } else {
+  //           return [];
+  //         }
+  //       })
+  //     );
+  //   }
+  // }
+
+
   getServiceData(): Observable<any[]> {
     if (this.allBookingDataCopy.length) {
       return of(this.allBookingDataCopy);
