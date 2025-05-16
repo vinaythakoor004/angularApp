@@ -1,17 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExampleService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpService: HttpService) { }
 
   getUserData(): Observable<any> {
 
-    return this.httpClient.get("./assets/json/users.json");
+    return this.httpService.get("./assets/json/users.json");
   }
   
 }
