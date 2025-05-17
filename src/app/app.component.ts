@@ -1,15 +1,14 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonService } from './common/service/common/common.service';
 import { PopupService } from './common/service/popup/popup.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { TranslationService } from './common/service/translation/translation.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive, MatTooltipModule, TranslatePipe ],
+  imports: [ CommonModule, RouterLink, RouterOutlet, RouterLinkActive, MatTooltipModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

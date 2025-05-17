@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
+import { HttpService } from '../../../services/http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +10,10 @@ export class CommonService {
   isLoggedIn: boolean = false;
   loggedInUser: any = {};
   selectedPlan: any = {};
-  constructor(private http: HttpClient) {}
+  constructor(private httpService: HttpService) {}
 
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>('./assets/json/login_users.json').pipe(
+    return this.httpService.get<any[]>('./assets/json/login_users.json').pipe(
       map((data: any) => {
         return data;
       })
@@ -21,7 +22,7 @@ export class CommonService {
 
   checkLoginDetails(data: any, userData: any): Observable<any> {
     let urlPart = '/login';
-    return this.http.post(urlPart, data).pipe(() => {
+    return this.httpService.post(urlPart, data).pipe(() => {
       let isValid: boolean = false;
       for (let index = 0; index < userData.length; index++) {
         const element = userData[index];
@@ -42,6 +43,6 @@ export class CommonService {
   }
 
   getPlanDetails(): Observable<any> {
-    return this.http.get('./assets/json/plans.json')
+    return this.httpService.get('./assets/json/plans.json')
   }
 }

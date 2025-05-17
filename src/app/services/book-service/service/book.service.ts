@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { serviceDetails } from '../model/serviceDetails';
+import { HttpService } from '../../http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,10 @@ export class BookService {
     this.serviceDetail = value;
   }
 
-  constructor( private http: HttpClient ) { }
+  constructor( private httpService: HttpService ) { }
 
     getServiceDetails(): Observable<any[]> {
-      return this.http.get<any[]>("./assets/json/service.json").pipe(map((data: any) => {
+      return this.httpService.get<any[]>("./assets/json/service.json").pipe(map((data: any) => {
         this.serviceDetail = data;
         return data;
       }));
