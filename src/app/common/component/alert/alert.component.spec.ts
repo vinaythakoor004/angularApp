@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlertComponent } from './alert.component';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 describe('AlertComponent', () => {
   let component: AlertComponent;
@@ -8,7 +9,15 @@ describe('AlertComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlertComponent]
+      imports: [AlertComponent],
+      providers: [
+        {
+          provide: MAT_SNACK_BAR_DATA,
+          useValue: {
+          name: 'Sample'
+          }
+        }
+      ]
     })
     .compileComponents();
 
