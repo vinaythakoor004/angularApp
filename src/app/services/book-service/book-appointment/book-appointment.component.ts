@@ -19,13 +19,7 @@ import { AlertService } from '../../../common/service/alert/alert.service';
 
 @Component({
   selector: 'app-book-appointment',
-  imports: [
-    MatDatepickerModule,
-    CommonModule,
-    MatTabsModule,
-    ReactiveFormsModule,
-    TranslatePipe,
-  ],
+  imports: [ MatDatepickerModule, CommonModule, MatTabsModule, ReactiveFormsModule, TranslatePipe ],
   templateUrl: './book-appointment.component.html',
   styleUrl: './book-appointment.component.css',
   providers: [provideNativeDateAdapter()],
